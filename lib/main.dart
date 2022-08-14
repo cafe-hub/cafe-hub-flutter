@@ -1,4 +1,5 @@
 import 'package:cafe_hub_flutter/controller/SampleController.dart';
+import 'package:cafe_hub_flutter/page/google_map.dart';
 import 'package:cafe_hub_flutter/page/home.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -43,9 +44,9 @@ class _MyHomePageState extends State<MyHomePage> {
       }),
       routes: {
         '/home': (context) => const Home(),
-        // '/callWait': (context)=> CallWait(),
+        '/map': (context) => const MyGoogleMap()
       },
-      initialRoute: '/home',
+      initialRoute: '/map',
     );
   }
 }
