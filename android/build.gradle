@@ -1,9 +1,5 @@
 buildscript {
     ext.kotlin_version = '1.6.10'
-    repositories {
-        google()
-        mavenCentral()
-    }
 
     dependencies {
         classpath 'com.android.tools.build:gradle:7.1.2'
@@ -11,11 +7,10 @@ buildscript {
     }
 }
 
-allprojects {
-    repositories {
-        google()
-        mavenCentral()
-    }
+/** 얘가 시켜서 함: https://developers.google.com/maps/documentation/android-sdk/config */
+plugins {
+    // ...
+    id 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin' version '2.0.1' apply false
 }
 
 rootProject.buildDir = '../build'
