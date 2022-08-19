@@ -1,52 +1,37 @@
-import 'package:cafe_hub_flutter/controller/SampleController.dart';
-import 'package:cafe_hub_flutter/page/google_map.dart';
 import 'package:cafe_hub_flutter/page/home.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:get/get_navigation/src/root/get_material_app.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
-
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      debugShowCheckedModeBanner: false,
+      title: 'Naver Map',
+      home: NaverMapTest(),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
-
-  final String title;
-
+class NaverMapTest extends StatefulWidget {
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  _NaverMapTestState createState() => _NaverMapTestState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _NaverMapTestState extends State<NaverMapTest> {
 
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      title: 'tteesstt',
-      initialBinding: BindingsBuilder(() {
-        Get.put(SampleController());
-      }),
+      title: 'test',
       routes: {
         '/home': (context) => const Home(),
-        '/map': (context) => const MyGoogleMap()
       },
-      initialRoute: '/map',
+      initialRoute: '/home',
     );
   }
 }

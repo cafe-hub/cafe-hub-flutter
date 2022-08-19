@@ -1,6 +1,7 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import '../controller/SampleController.dart';
+import 'package:naver_map_plugin/naver_map_plugin.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -10,30 +11,24 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  final SampleController _sampleController = Get.find();
+
+  Completer<NaverMapController> _controller = Completer();
+  MapType _mapType = MapType.Basic;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-          Obx(() => Text(
-              '${_sampleController.count}',
-              style: Theme.of(context).textTheme.headline4,
-            )),
-          ],
+      body: Container(
+        child: NaverMap(
+          onMapCreated: onMapCreated,
+          mapType: _mapType,
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _sampleController.increment,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ),
     );
+  }
+
+  void onMapCreated(NaverMapController controller) {
+    if (_controller.isCompleted) _controller = Completer();
+    _controller.complete(controller);
   }
 }
