@@ -25,12 +25,6 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
-/** 얘가 시켜서 함: https://developers.google.com/maps/documentation/android-sdk/config */
-apply plugin: 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin'
-
-Properties properties = new Properties()
-properties.load(project.rootProject.file('local.properties').newDataInputStream())
-
 android {
     compileSdkVersion flutter.compileSdkVersion
     ndkVersion flutter.ndkVersion
@@ -57,8 +51,6 @@ android {
         targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
-
-        buildConfigField "String", "MAPS_API_KEY", properties['MAPS_API_KEY']
     }
 
     buildTypes {
@@ -76,5 +68,4 @@ flutter {
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'com.google.android.gms:play-services-maps:18.1.0'
 }
