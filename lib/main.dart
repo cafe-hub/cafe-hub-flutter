@@ -7,27 +7,10 @@ import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'controller/detail_controller.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(CafeHub());
 }
 
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Naver Map',
-      home: NaverMapTest(),
-    );
-  }
-}
-
-class NaverMapTest extends StatefulWidget {
-  @override
-  _NaverMapTestState createState() => _NaverMapTestState();
-}
-
-class _NaverMapTestState extends State<NaverMapTest> {
-
+class CafeHub extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
