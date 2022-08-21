@@ -1,4 +1,5 @@
 import 'package:cafe_hub_flutter/page/detail.dart';
+import 'package:cafe_hub_flutter/page/dev.dart';
 import 'package:cafe_hub_flutter/page/home.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -18,8 +19,9 @@ class CafeHub extends StatelessWidget {
       routes: {
         '/home': (context) => const Home(),
         '/detail': (context) => Detail(detailController: Get.find()),
+        '/dev': (context) => Dev()
       },
-      initialRoute: '/detail',
+      initialRoute: '/dev',
       initialBinding: BindingsBuilder(() {
         Get.put(DetailController());
       }),
