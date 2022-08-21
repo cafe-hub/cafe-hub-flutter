@@ -10,4 +10,11 @@ class DetailController extends getx.GetxController {
     "토요일 휴무",
     "일요일 휴무"
   ].obs;
+
+  List<String> imageUrls = ['https://picsum.photos/360', 'https://picsum.photos/400'];
+
+  var currentCarouselPage = 1.obs;
+  void updatePage(int page) {
+    currentCarouselPage.value = page;
+  }
 }

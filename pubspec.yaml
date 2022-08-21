@@ -16,6 +16,7 @@ dependencies:
     git: https://github.com/LBSTECH/naver_map_plugin.git
   flutter_svg: ^1.1.4
   cupertino_icons: ^1.0.2
+  carousel_slider: ^4.1.1
 
 dev_dependencies:
   flutter_test:

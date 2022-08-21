@@ -1,5 +1,7 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 
 import '../common/ChColors.dart';
 import '../controller/detail_controller.dart';
@@ -18,17 +20,14 @@ class _DetailState extends State<Detail> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: appBar(),
-      body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(padding: EdgeInsets.only(top: 16)),
-            location(),
-            plugInfo(),
-            openInfo(widget.detailController.openAndCloseInfo)
-          ],
-        ),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          cafeImages(widget.detailController.imageUrls),
+          location(),
+          plugInfo(),
+          openInfo(widget.detailController.openAndCloseInfo)
+        ],
       ),
     );
   }
@@ -49,11 +48,42 @@ class _DetailState extends State<Detail> {
         ));
   }
 
+  Widget cafeImages(List<String> list) {
+    return Stack(alignment: Alignment.topRight, children: [
+      carousel(list),
+      Container(
+          margin: EdgeInsets.only(right: 20, top: 16),
+          padding: EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+          decoration: BoxDecoration(
+              color: Color(0x88000000),
+              borderRadius: BorderRadius.circular(20)),
+          child: Obx(() => Text(
+                "${widget.detailController.currentCarouselPage}/${list.length}",
+                style: TextStyle(color: Colors.white),
+              )))
+    ]);
+  }
+
+  Widget carousel(List<String> list) {
+    return CarouselSlider.builder(
+        itemCount: list.length,
+        itemBuilder: (BuildContext context, int itemIndex, int pageViewIndex) =>
+            SizedBox(
+                width: double.infinity,
+                child: Image(
+                    image: NetworkImage(list[itemIndex]), fit: BoxFit.cover)),
+        options: CarouselOptions(
+            height: MediaQuery.of(context).size.width,
+            viewportFraction: 1,
+            onPageChanged: (index, reason) => {
+              widget.detailController.updatePage(index + 1)
+            })
+    );
+  }
+
   Widget location() {
     return Padding(
-      padding: EdgeInsets.only(
-        bottom: 8,
-      ),
+      padding: EdgeInsets.only(bottom: 8, left: 20, right: 20, top: 16),
       child: Row(
         children: [
           Padding(
@@ -73,7 +103,7 @@ class _DetailState extends State<Detail> {
 
   Widget plugInfo() {
     return Padding(
-      padding: EdgeInsets.only(bottom: 8),
+      padding: EdgeInsets.only(bottom: 8, left: 20, right: 20),
       child: Row(
         children: [
           Padding(
@@ -96,7 +126,7 @@ class _DetailState extends State<Detail> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: EdgeInsets.fromLTRB(0, 2, 8, 0),
+          padding: EdgeInsets.fromLTRB(20, 2, 8, 0),
           child: SvgPicture.asset(
             'assets/time.svg',
             color: ChColors.black,
