@@ -21,7 +21,7 @@ class CafeHub extends StatelessWidget {
         '/detail': (context) => Detail(detailController: Get.find()),
         '/dev': (context) => Dev()
       },
-      initialRoute: '/dev',
+      initialRoute: '/home',
       initialBinding: BindingsBuilder(() {
         Get.put(DetailController());
       }),
