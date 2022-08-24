@@ -21,6 +21,7 @@ class _HomeState extends State<Home> {
     return Scaffold(
       body: Container(
         child: NaverMap(
+          initLocationTrackingMode : LocationTrackingMode.Follow,
           locationButtonEnable : true,
           onMapCreated: onMapCreated,
           mapType: _mapType,
