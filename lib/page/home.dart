@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:naver_map_plugin/naver_map_plugin.dart';
 
 class Home extends StatefulWidget {
@@ -20,6 +21,7 @@ class _HomeState extends State<Home> {
     return Scaffold(
       body: Container(
         child: NaverMap(
+          locationButtonEnable : true,
           onMapCreated: onMapCreated,
           mapType: _mapType,
         ),
