@@ -14,6 +14,18 @@ class _HomeState extends State<Home> {
   Completer<NaverMapController> _controller = Completer();
   MapType _mapType = MapType.Basic;
 
+  void _showList(BuildContext context) {
+    showBottomSheet(context: context, builder: (context) {
+      return Container(
+        height: 200,
+        width: double.infinity,
+          decoration: BoxDecoration(
+            color: Colors.white
+          ),
+          child: Text("바텀~~~ 시트~~~"));
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,7 +48,16 @@ class _HomeState extends State<Home> {
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(16)
               ),
-              child: Text("목록 보기")
+              child: Builder(
+                builder: (context) {
+                  return TextButton(
+                    child: Text("목록 보기"),
+                    onPressed: () {
+                      _showList(context);
+                    },
+                  );
+                }
+              )
           )
         ]),
       ),
