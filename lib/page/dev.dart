@@ -20,7 +20,7 @@ class _State extends State<Dev> {
         child: Column(
           children: [
             TextButton(
-                onPressed: () => Get.to(() => Home()),
+                onPressed: () => Get.to(() => Home(homeController: Get.find())),
                 child: Text("지도")
             ),
             TextButton(

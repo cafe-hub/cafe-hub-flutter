@@ -1,3 +1,4 @@
+import 'package:cafe_hub_flutter/controller/home_controller.dart';
 import 'package:cafe_hub_flutter/page/detail.dart';
 import 'package:cafe_hub_flutter/page/dev.dart';
 import 'package:cafe_hub_flutter/page/home.dart';
@@ -17,12 +18,13 @@ class CafeHub extends StatelessWidget {
     return GetMaterialApp(
       title: 'test',
       routes: {
-        '/home': (context) => const Home(),
+        '/home': (context) => Home(homeController: Get.find()),
         '/detail': (context) => Detail(detailController: Get.find()),
         '/dev': (context) => Dev()
       },
       initialRoute: '/dev',
       initialBinding: BindingsBuilder(() {
+        Get.put(HomeController());
         Get.put(DetailController());
       }),
     );
