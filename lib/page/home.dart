@@ -17,113 +17,6 @@ class _HomeState extends State<Home> {
   Completer<NaverMapController> _controller = Completer();
   MapType _mapType = MapType.Basic;
 
-  void _showList(BuildContext context) {
-    showBottomSheet(
-        context: context,
-        builder: (context) {
-          return Container(
-              width: double.infinity,
-              decoration: BoxDecoration(
-                  color: Colors.white, borderRadius: BorderRadius.circular(12)),
-              child: _listItem());
-        });
-  }
-
-  Widget _listItem() {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 20),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: EdgeInsets.only(top: 24),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(8),
-                  child: Image.network(
-                    'https://picsum.photos/360',
-                    width: MediaQuery.of(context).size.width / 2 - 21,
-                    height: MediaQuery.of(context).size.width / 2 - 21,
-                  ),
-                ),
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(8),
-                  child: Image.network(
-                    'https://picsum.photos/360',
-                    width: MediaQuery.of(context).size.width / 2 - 21,
-                    height: MediaQuery.of(context).size.width / 2 - 21,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Padding(
-              padding: EdgeInsets.only(top: 16, bottom: 8),
-              child: Text(
-                "미스터디유커피",
-                style: TextStyle(
-                    fontSize: 16.0,
-                    fontWeight: FontWeight.bold),
-              )),
-          Row(
-            children: [
-              Padding(
-                padding: EdgeInsets.only(right: 8),
-                child: SvgPicture.asset(
-                  'assets/marker_outlined.svg',
-                  color: ChColors.black,
-                  width: 16,
-                  height: 16,
-                ),
-              ),
-              Text("인천 연수구 아카데미로 119")
-            ],
-          ),
-          Padding(padding: EdgeInsets.only(bottom: 8)),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Expanded(
-                child: Row(
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.only(right: 8),
-                      child: SvgPicture.asset(
-                        'assets/time.svg',
-                        color: ChColors.black,
-                        width: 16,
-                        height: 16,
-                      ),
-                    ),
-                    Text("10:00 ~ 17:30")
-                  ],
-                ),
-              ),
-              Expanded(
-                child: Row(
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.only(right: 8),
-                      child: SvgPicture.asset(
-                        'assets/power.svg',
-                        color: ChColors.black,
-                        width: 16,
-                        height: 16,
-                      ),
-                    ),
-                    Text("콘센트 많음")
-                  ],
-                ),
-              )
-            ],
-          )
-        ],
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -147,12 +40,157 @@ class _HomeState extends State<Home> {
                   child: Text("목록 보기"),
                   onPressed: () {
                     _showList(context);
+                    // _showLocationInfo(context, '미스터디유커피', '인천 연수구 아카데미로 119', '10:30 ~ 17:30', '콘센트 많음');
                   },
                 );
               }))
         ]),
       ),
     );
+  }
+
+  void _showList(BuildContext context) {
+    showBottomSheet(
+        context: context,
+        builder: (context) {
+          return Container(
+              width: double.infinity,
+              decoration: BoxDecoration(
+                  color: Colors.white, borderRadius: BorderRadius.circular(12)),
+              child: _listItem('미스터디유커피', '인천 연수구 아카데미로 119', '10:30 ~ 17:30', '콘센트 많음'));
+        });
+  }
+
+  Widget _listItem(String cafeName, String location, String time, String plugInfo) {
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 20),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: EdgeInsets.only(top: 24),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(8),
+                  child: Image.network(
+                    'https://picsum.photos/360',
+                    width: MediaQuery
+                        .of(context)
+                        .size
+                        .width / 2 - 21,
+                    height: MediaQuery
+                        .of(context)
+                        .size
+                        .width / 2 - 21,
+                  ),
+                ),
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(8),
+                  child: Image.network(
+                    'https://picsum.photos/360',
+                    width: MediaQuery
+                        .of(context)
+                        .size
+                        .width / 2 - 21,
+                    height: MediaQuery
+                        .of(context)
+                        .size
+                        .width / 2 - 21,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          ...cafeInfo(cafeName, location, time, plugInfo)
+        ],
+      ),
+    );
+  }
+
+  void _showLocationInfo(BuildContext context, String cafeName, String location, String time, String plugInfo) {
+    showBottomSheet(
+        context: context,
+        builder: (context) {
+          return Container(
+              width: double.infinity,
+              height: 120,
+              decoration: BoxDecoration(
+                  color: Colors.white, borderRadius: BorderRadius.circular(12)),
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20),
+                child: Column(
+                  children: cafeInfo(cafeName, location, time, plugInfo)
+                )
+              )
+          );
+        });
+  }
+
+  List<Widget> cafeInfo(String cafeName, String location, String time, String plugInfo) {
+    return [
+        Padding(
+            padding: EdgeInsets.only(top: 16, bottom: 8),
+            child: Text(
+              cafeName,
+              style: TextStyle(
+                  fontSize: 16.0,
+                  fontWeight: FontWeight.bold),
+            )),
+        Row(
+          children: [
+            Padding(
+              padding: EdgeInsets.only(right: 8),
+              child: SvgPicture.asset(
+                'assets/marker_outlined.svg',
+                color: ChColors.black,
+                width: 16,
+                height: 16,
+              ),
+            ),
+            Text(location)
+          ],
+        ),
+        Padding(padding: EdgeInsets.only(bottom: 8)),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Expanded(
+              child: Row(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.only(right: 8),
+                    child: SvgPicture.asset(
+                      'assets/time.svg',
+                      color: ChColors.black,
+                      width: 16,
+                      height: 16,
+                    ),
+                  ),
+                  Text(time)
+                ],
+              ),
+            ),
+            Expanded(
+              child: Row(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.only(right: 8),
+                    child: SvgPicture.asset(
+                      'assets/power.svg',
+                      color: ChColors.black,
+                      width: 16,
+                      height: 16,
+                    ),
+                  ),
+                  Text(plugInfo)
+                ],
+              ),
+            )
+          ],
+        )
+    ];
   }
 
   void onMapCreated(NaverMapController controller) {
