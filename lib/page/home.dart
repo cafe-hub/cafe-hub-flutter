@@ -32,22 +32,32 @@ class _HomeState extends State<Home> {
             onMapCreated: onMapCreated,
             mapType: _mapType,
           ),
-          Container(
-              alignment: Alignment.center,
-              width: 100,
-              height: 32,
-              margin: EdgeInsets.only(bottom: 24),
-              decoration: BoxDecoration(
-                  color: Colors.white, borderRadius: BorderRadius.circular(16)),
-              child: Builder(builder: (context) {
-                return TextButton(
-                  child: Text("목록 보기"),
+          Padding(
+            padding: EdgeInsets.only(bottom: 24),
+            child: Builder(builder: (context) {
+              return ButtonTheme(
+                minWidth: 100,
+                height: 32,
+                child: OutlinedButton(
+                  style: OutlinedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(16)
+                    ),
+                    side: BorderSide(width: 1, color: ChColors.gray100, style: BorderStyle.solid)
+                  ),
+                  child: Text("목록 보기",
+                  style: TextStyle(
+                    color: ChColors.black
+                  ),
+                  ),
                   onPressed: () {
                     _showList(context);
                     // _showLocationInfo(context, '미스터디유커피', '인천 연수구 아카데미로 119', '10:30 ~ 17:30', '콘센트 많음');
                   },
-                );
-              })),
+                ),
+              );
+            }),
+          ),
         ]),
       ),
     );
