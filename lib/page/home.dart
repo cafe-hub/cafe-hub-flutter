@@ -21,6 +21,13 @@ class _HomeState extends State<Home> {
   Completer<NaverMapController> _controller = Completer();
   MapType _mapType = MapType.Basic;
 
+  void _onMarkerTap(Marker? marker, Map<String, int?> iconSize) {
+    int pos = widget.homeController.markers.indexWhere((m) => m.markerId == marker!.markerId);
+    setState(() {
+      widget.homeController.markers[pos].captionText = '선택됨';
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,6 +38,7 @@ class _HomeState extends State<Home> {
             locationButtonEnable: true,
             onMapCreated: onMapCreated,
             mapType: _mapType,
+            markers: widget.homeController.markers,
           ),
           Padding(
             padding: EdgeInsets.only(bottom: 24),
