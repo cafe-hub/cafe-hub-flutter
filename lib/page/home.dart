@@ -21,11 +21,17 @@ class _HomeState extends State<Home> {
   Completer<NaverMapController> _controller = Completer();
   MapType _mapType = MapType.Basic;
 
+  List<Marker> _getMarkers() {
+    return [Marker(
+      markerId: DateTime.now().toIso8601String(),
+      position: LatLng(37.563600, 126.962370),
+      infoWindow: '테스트',
+      onMarkerTab: _onMarkerTap,
+    )];
+  }
+
   void _onMarkerTap(Marker? marker, Map<String, int?> iconSize) {
-    int pos = widget.homeController.markers.indexWhere((m) => m.markerId == marker!.markerId);
-    setState(() {
-      widget.homeController.markers[pos].captionText = '선택됨';
-    });
+    _showLocationInfo(context, CafeInfo('미스터디유커피', '인천 연수구 아카데미로 119', '10:30 ~ 17:30', '콘센트 많음', null));
   }
 
   @override
@@ -38,7 +44,7 @@ class _HomeState extends State<Home> {
             locationButtonEnable: true,
             onMapCreated: onMapCreated,
             mapType: _mapType,
-            markers: widget.homeController.markers,
+            markers: _getMarkers(),
           ),
           Padding(
             padding: EdgeInsets.only(bottom: 24),
@@ -60,7 +66,6 @@ class _HomeState extends State<Home> {
                   ),
                   onPressed: () {
                     _showList(context);
-                    // _showLocationInfo(context, '미스터디유커피', '인천 연수구 아카데미로 119', '10:30 ~ 17:30', '콘센트 많음');
                   },
                 ),
               );
