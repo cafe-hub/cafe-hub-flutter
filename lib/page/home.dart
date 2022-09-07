@@ -31,8 +31,10 @@ class _HomeState extends State<Home> {
   }
 
   void _onMarkerTap(Marker? marker, Map<String, int?> iconSize) {
-    _showLocationInfo(context, CafeInfo('미스터디유커피', '인천 연수구 아카데미로 119', '10:30 ~ 17:30', '콘센트 많음', null));
+    _showLocationInfo(mContext ?? context, CafeInfo('미스터디유커피', '인천 연수구 아카데미로 119', '10:30 ~ 17:30', '콘센트 많음', null));
   }
+
+  BuildContext? mContext;
 
   @override
   Widget build(BuildContext context) {
@@ -65,6 +67,7 @@ class _HomeState extends State<Home> {
                   ),
                   ),
                   onPressed: () {
+                    mContext = context;
                     _showList(context);
                   },
                 ),
