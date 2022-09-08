@@ -48,6 +48,7 @@ class _HomeState extends State<Home> {
                 height: 32,
                 child: OutlinedButton(
                   style: OutlinedButton.styleFrom(
+                    backgroundColor: Colors.white,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(16)
                     ),
