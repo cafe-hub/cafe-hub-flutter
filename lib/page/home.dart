@@ -23,7 +23,8 @@ class _HomeState extends State<Home> {
   MapType _mapType = MapType.Basic;
 
   void _onMarkerTap(Marker? marker, Map<String, int?> iconSize) {
-    _showLocationInfo(mContext ?? context, CafeInfo('123', '미스터디유커피', '인천 연수구 아카데미로 119', '10:30 ~ 17:30', '콘센트 많음', null));
+    _showLocationInfo(mContext ?? context, CafeInfo(
+        '123', '미스터디유커피', '인천 연수구 아카데미로 119', '10:30 ~ 17:30', '콘센트 많음', null));
   }
 
   BuildContext? mContext;
@@ -56,43 +57,46 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: Stack(alignment: Alignment.bottomCenter, children: [
-          NaverMap(
-            initLocationTrackingMode: LocationTrackingMode.Follow,
-            locationButtonEnable: true,
-            onMapCreated: onMapCreated,
-            mapType: _mapType,
-            markers: widget.homeController.getMarkers(_onMarkerTap),
-          ),
-          Padding(
-            padding: EdgeInsets.only(bottom: 24),
-            child: Builder(builder: (context) {
-              return ButtonTheme(
-                minWidth: 100,
-                height: 32,
-                child: OutlinedButton(
-                  style: OutlinedButton.styleFrom(
-                      backgroundColor: Colors.white,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(16)),
-                      side: BorderSide(
-                          width: 1,
-                          color: ChColors.gray100,
-                          style: BorderStyle.solid)),
-                  child: Text(
-                    "목록 보기",
-                    style: TextStyle(color: ChColors.black),
-                  ),
-                  onPressed: () {
-                    mContext = context;
-                    _showList(context);
-                  },
-                ),
-              );
-            }),
-          ),
-        ]),
+      body: Builder(
+        builder: (context) {
+          mContext = context;
+
+          return SafeArea(
+            child: Stack(alignment: Alignment.bottomCenter, children: [
+              NaverMap(
+                initLocationTrackingMode: LocationTrackingMode.Follow,
+                locationButtonEnable: true,
+                onMapCreated: onMapCreated,
+                mapType: _mapType,
+                markers: widget.homeController.getMarkers(_onMarkerTap),
+              ),
+              Padding(
+                  padding: EdgeInsets.only(bottom: 24),
+                  child: ButtonTheme(
+                    minWidth: 100,
+                    height: 32,
+                    child: OutlinedButton(
+                      style: OutlinedButton.styleFrom(
+                          backgroundColor: Colors.white,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(16)),
+                          side: BorderSide(
+                              width: 1,
+                              color: ChColors.gray100,
+                              style: BorderStyle.solid)),
+                      child: Text(
+                        "목록 보기",
+                        style: TextStyle(color: ChColors.black),
+                      ),
+                      onPressed: () {
+                        _showList(context);
+                      },
+                    ),
+                  )
+              ),
+            ]),
+          );
+        },
       ),
     );
   }
@@ -129,16 +133,28 @@ class _HomeState extends State<Home> {
                   borderRadius: BorderRadius.circular(8),
                   child: Image.network(
                     'https://picsum.photos/360',
-                    width: MediaQuery.of(context).size.width / 2 - 21,
-                    height: MediaQuery.of(context).size.width / 2 - 21,
+                    width: MediaQuery
+                        .of(context)
+                        .size
+                        .width / 2 - 21,
+                    height: MediaQuery
+                        .of(context)
+                        .size
+                        .width / 2 - 21,
                   ),
                 ),
                 ClipRRect(
                   borderRadius: BorderRadius.circular(8),
                   child: Image.network(
                     'https://picsum.photos/360',
-                    width: MediaQuery.of(context).size.width / 2 - 21,
-                    height: MediaQuery.of(context).size.width / 2 - 21,
+                    width: MediaQuery
+                        .of(context)
+                        .size
+                        .width / 2 - 21,
+                    height: MediaQuery
+                        .of(context)
+                        .size
+                        .width / 2 - 21,
                   ),
                 ),
               ],
