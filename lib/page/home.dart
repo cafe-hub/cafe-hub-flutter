@@ -5,6 +5,7 @@ import 'package:cafe_hub_flutter/model/presentation/cafe_info.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:naver_map_plugin/naver_map_plugin.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 import '../common/ChColors.dart';
 
@@ -26,6 +27,19 @@ class _HomeState extends State<Home> {
     setState(() {
       widget.homeController.markers[pos].captionText = '선택됨';
     });
+  }
+
+
+  @override
+  void initState() {
+    tryToRequestLocationPermission();
+  }
+
+  void tryToRequestLocationPermission() async {
+    bool status = await Permission.location.isGranted;
+    if(status == false) {
+      Permission.location.request();
+    }
   }
 
   @override
