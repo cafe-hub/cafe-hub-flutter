@@ -23,12 +23,12 @@ class _HomeState extends State<Home> {
   MapType _mapType = MapType.Basic;
 
   void _onMarkerTap(Marker? marker, Map<String, int?> iconSize) {
-    int pos = widget.homeController.markers.indexWhere((m) => m.markerId == marker!.markerId);
+    int pos = widget.homeController.markers
+        .indexWhere((m) => m.markerId == marker!.markerId);
     setState(() {
       widget.homeController.markers[pos].captionText = '선택됨';
     });
   }
-
 
   @override
   void initState() {
@@ -37,8 +37,21 @@ class _HomeState extends State<Home> {
 
   void tryToRequestLocationPermission() async {
     bool status = await Permission.location.isGranted;
-    if(status == false) {
-      Permission.location.request();
+    if (status == true) return;
+
+    var permissionStatus = await Permission.location.request();
+    if (permissionStatus == PermissionStatus.permanentlyDenied) {
+      showDialog(context: context, builder: (context) {
+        return AlertDialog(
+          title: Text("위치 정보가 필요합니다."),
+          content: TextButton(
+            child: Text("설정"),
+            onPressed: () {
+              openAppSettings();
+            },
+          ),
+        );
+      });
     }
   }
 
@@ -62,16 +75,16 @@ class _HomeState extends State<Home> {
                 height: 32,
                 child: OutlinedButton(
                   style: OutlinedButton.styleFrom(
-                    backgroundColor: Colors.white,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(16)
-                    ),
-                    side: BorderSide(width: 1, color: ChColors.gray100, style: BorderStyle.solid)
-                  ),
-                  child: Text("목록 보기",
-                  style: TextStyle(
-                    color: ChColors.black
-                  ),
+                      backgroundColor: Colors.white,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(16)),
+                      side: BorderSide(
+                          width: 1,
+                          color: ChColors.gray100,
+                          style: BorderStyle.solid)),
+                  child: Text(
+                    "목록 보기",
+                    style: TextStyle(color: ChColors.black),
                   ),
                   onPressed: () {
                     _showList(context);
