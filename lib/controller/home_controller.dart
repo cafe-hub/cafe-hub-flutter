@@ -5,6 +5,7 @@ import 'package:naver_map_plugin/naver_map_plugin.dart';
 class HomeController extends getx.GetxController {
   var bottomSheetVisibility = false.obs;
 
+
   List<Marker> getMarkers(void Function(Marker? marker, Map<String, int?> iconSize) action) {
     return cafes.map(
             (cafeInfo) => Marker(
@@ -13,6 +14,8 @@ class HomeController extends getx.GetxController {
             onMarkerTab: action)
     ).toList();
   }
+
+
 
   var cafes = [
     CafeInfo('1', '미스터디유커피1', '인천 연수구 아카데미로 119', '10:30 ~ 17:30', '콘센트 많음', LatLng(37.563600, 126.962370)),
