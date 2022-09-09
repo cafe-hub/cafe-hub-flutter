@@ -1,6 +1,7 @@
 import 'package:cafe_hub_flutter/model/presentation/cafe_info.dart';
 import 'package:get/get.dart' as getx;
 import 'package:naver_map_plugin/naver_map_plugin.dart';
+import 'package:cafe_hub_flutter/service.dart';
 
 class HomeController extends getx.GetxController {
   var bottomSheetVisibility = false.obs;
