@@ -23,8 +23,10 @@ class _HomeState extends State<Home> {
   MapType _mapType = MapType.Basic;
 
   void _onMarkerTap(Marker? marker, Map<String, int?> iconSize) {
-    _showLocationInfo(mContext ?? context, CafeInfo(
-        '123', '미스터디유커피', '인천 연수구 아카데미로 119', '10:30 ~ 17:30', '콘센트 많음', null));
+    _showLocationInfo(
+        mContext ?? context,
+        CafeInfo('123', '미스터디유커피', '인천 연수구 아카데미로 119', '10:30 ~ 17:30',
+            '콘센트 많음', null));
   }
 
   BuildContext? mContext;
@@ -40,17 +42,19 @@ class _HomeState extends State<Home> {
 
     var permissionStatus = await Permission.location.request();
     if (permissionStatus == PermissionStatus.permanentlyDenied) {
-      showDialog(context: context, builder: (context) {
-        return AlertDialog(
-          title: Text("위치 정보가 필요합니다."),
-          content: TextButton(
-            child: Text("설정"),
-            onPressed: () {
-              openAppSettings();
-            },
-          ),
-        );
-      });
+      showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              title: Text("위치 정보가 필요합니다."),
+              content: TextButton(
+                child: Text("설정"),
+                onPressed: () {
+                  openAppSettings();
+                },
+              ),
+            );
+          });
     }
   }
 
@@ -72,28 +76,61 @@ class _HomeState extends State<Home> {
               ),
               Padding(
                   padding: EdgeInsets.only(bottom: 24),
-                  child: ButtonTheme(
-                    minWidth: 100,
-                    height: 32,
-                    child: OutlinedButton(
-                      style: OutlinedButton.styleFrom(
-                          backgroundColor: Colors.white,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(16)),
-                          side: BorderSide(
-                              width: 1,
-                              color: ChColors.gray100,
-                              style: BorderStyle.solid)),
-                      child: Text(
-                        "목록 보기",
-                        style: TextStyle(color: ChColors.black),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Container(
+                        width: 48,
+                        height: 48,
+                        margin: EdgeInsets.only(left: 16),
                       ),
-                      onPressed: () {
-                        _showList(context);
-                      },
-                    ),
-                  )
-              ),
+                      ButtonTheme(
+                        minWidth: 100,
+                        height: 32,
+                        child: OutlinedButton(
+                          style: OutlinedButton.styleFrom(
+                              backgroundColor: Colors.white,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(16)),
+                              side: BorderSide(
+                                  width: 1,
+                                  color: ChColors.gray100,
+                                  style: BorderStyle.solid)),
+                          child: Text(
+                            "목록 보기",
+                            style: TextStyle(color: ChColors.black),
+                          ),
+                          onPressed: () {
+                            _showList(context);
+                          },
+                        ),
+                      ),
+                      Container(
+                          height: 48,
+                          width: 48,
+                          padding: EdgeInsets.only(left: 2),
+                          margin: EdgeInsets.only(bottom: 20, right: 16),
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              primary: Colors.white,
+                              side: BorderSide(
+                                  width: 1,
+                                  color: ChColors.gray100,
+                                  style: BorderStyle.solid),
+                              elevation: 2,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(4)),
+                            ),
+                            onPressed: () {},
+                            child: SvgPicture.asset(
+                              'assets/coffee.svg',
+                              color: ChColors.black,
+                              width: 24,
+                              height: 24,
+                            ),
+                          ))
+                    ],
+                  )),
             ]),
           );
         },
@@ -133,28 +170,16 @@ class _HomeState extends State<Home> {
                   borderRadius: BorderRadius.circular(8),
                   child: Image.network(
                     'https://picsum.photos/360',
-                    width: MediaQuery
-                        .of(context)
-                        .size
-                        .width / 2 - 21,
-                    height: MediaQuery
-                        .of(context)
-                        .size
-                        .width / 2 - 21,
+                    width: MediaQuery.of(context).size.width / 2 - 21,
+                    height: MediaQuery.of(context).size.width / 2 - 21,
                   ),
                 ),
                 ClipRRect(
                   borderRadius: BorderRadius.circular(8),
                   child: Image.network(
                     'https://picsum.photos/360',
-                    width: MediaQuery
-                        .of(context)
-                        .size
-                        .width / 2 - 21,
-                    height: MediaQuery
-                        .of(context)
-                        .size
-                        .width / 2 - 21,
+                    width: MediaQuery.of(context).size.width / 2 - 21,
+                    height: MediaQuery.of(context).size.width / 2 - 21,
                   ),
                 ),
               ],
