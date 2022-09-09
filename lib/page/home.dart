@@ -22,6 +22,7 @@ class _HomeState extends State<Home> {
   Completer<NaverMapController> _controller = Completer();
   MapType _mapType = MapType.Basic;
 
+
   void _onMarkerTap(Marker? marker, Map<String, int?> iconSize) {
     _showLocationInfo(
         mContext ?? context,
@@ -121,7 +122,9 @@ class _HomeState extends State<Home> {
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(4)),
                             ),
-                            onPressed: () {},
+                            onPressed: () {
+                              _moveToCafeArea();
+                            },
                             child: SvgPicture.asset(
                               'assets/coffee.svg',
                               color: ChColors.black,
@@ -272,5 +275,14 @@ class _HomeState extends State<Home> {
   void onMapCreated(NaverMapController controller) {
     if (_controller.isCompleted) _controller = Completer();
     _controller.complete(controller);
+  }
+
+  void _moveToCafeArea() {
+    _controller.future.then((value) {
+      var camUpdate = CameraUpdate.toCameraPosition(CameraPosition(target: LatLng(37.4964860, 127.0283615)));
+      value.moveCamera(camUpdate);
+    });
+
+
   }
 }
