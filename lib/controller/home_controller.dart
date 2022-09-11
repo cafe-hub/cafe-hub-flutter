@@ -1,11 +1,11 @@
 import 'package:cafe_hub_flutter/model/presentation/cafe_info.dart';
-import 'package:get/get.dart' as getx;
+import 'package:get/get.dart';
 import 'package:naver_map_plugin/naver_map_plugin.dart';
 import 'package:cafe_hub_flutter/service/service.dart';
-
-class HomeController extends getx.GetxController {
+//다건조회
+class HomeController extends GetxController {
   var bottomSheetVisibility = false.obs;
-
+  //var cafes = <CafeInfo>[].obs;
 
   List<Marker> getMarkers(void Function(Marker? marker, Map<String, int?> iconSize) action) {
     return cafes.map(

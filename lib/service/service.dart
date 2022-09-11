@@ -1,16 +1,21 @@
+import 'dart:convert';
+import 'dart:ffi';
+
+import 'package:cafe_hub_flutter/common/network_util.dart';
+import 'package:cafe_hub_flutter/model/data/cafe_info_response.dart';
 import 'package:http/http.dart' as http;
 import '../model/presentation/cafe_info.dart';
 
-class Services{
-  static var client = http.Client();
+class Service{
+  var client = http.Client();
 
-  static Future<List<CafeInfo>?> fetchCafes() async{
-    var response = await client.get(Uri.parse('api주소'));
+  Future<CafeInfo?> fetchCafe(Long id) async{
+    var response = await client.get(Uri.parse("${NetworkUtil.baseUrl}/cafe/$id"));
 
     if(response.statusCode == 200){
-      var jsonData = response.body;
+      var jsonData = jsonDecode(response.body);
       print('api연결 성공');
-      //return으로 api에서 가져온 카페 데이터 처리 해주기~~
+      return CafeInfoResponse.fromJson(jsonData).toEntity();
     }else{
       print('연결 실패~~');
       return null;

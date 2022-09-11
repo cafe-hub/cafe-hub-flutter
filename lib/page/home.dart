@@ -247,7 +247,7 @@ class _HomeState extends State<Home> {
                     height: 16,
                   ),
                 ),
-                Text(cafeInfo.time)
+                Text(cafeInfo.todayHours)
               ],
             ),
           ),
@@ -263,7 +263,7 @@ class _HomeState extends State<Home> {
                     height: 16,
                   ),
                 ),
-                Text(cafeInfo.plug)
+                Text(cafeInfo.plugStatus)
               ],
             ),
           )
