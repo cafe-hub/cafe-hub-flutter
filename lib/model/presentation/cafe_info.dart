@@ -5,8 +5,9 @@ class CafeInfo {
   String name;
   String location;
   String time;
+  List<String?> times;
   String plug;
   LatLng? latLng;
 
-  CafeInfo(this.id, this.name, this.location, this.time, this.plug, this.latLng);
+  CafeInfo(this.id, this.name, this.location, this.time, this.times, this.plug, this.latLng);
 }

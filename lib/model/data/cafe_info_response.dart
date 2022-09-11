@@ -1,4 +1,8 @@
 import 'dart:ffi';
+import 'dart:html';
+
+import 'package:cafe_hub_flutter/model/presentation/cafe_info.dart';
+import 'package:naver_map_plugin/naver_map_plugin.dart';
 
 class CafeInfoResponse {
   Long id;
@@ -12,6 +16,7 @@ class CafeInfoResponse {
   String? friday;
   String? saturday;
   String? sunday;
+
   List<String> photoUrl = []; // 수정될 수 있음.
 
   CafeInfoResponse({
@@ -40,4 +45,12 @@ class CafeInfoResponse {
         saturday = json['saturday'],
         sunday = json['sunday'],
         plugStatus = json['plugStatus'];
+
+  CafeInfo toEntity() {
+    int today = DateTime.now().weekday;
+    List<String?> times = [monday, tuesday, wednesday, thursday, friday, saturday, sunday];
+    String? todayTime = times[today-1] ?? "휴무일";
+
+    return CafeInfo(id.toString(), cafeName, location, todayTime, [], plugStatus, LatLng(37.4964860, 127.0283615));
+  }
 }
