@@ -48,9 +48,9 @@ class CafeInfoResponse {
 
   CafeInfo toEntity() {
     int today = DateTime.now().weekday;
-    List<String?> times = [monday, tuesday, wednesday, thursday, friday, saturday, sunday];
-    String? todayTime = times[today-1] ?? "휴무일";
+    List<String?> weekHours = [monday, tuesday, wednesday, thursday, friday, saturday, sunday];
+    String? todayHours = weekHours[today-1] ?? "휴무일";
 
-    return CafeInfo(id.toString(), cafeName, location, todayTime, [], plugStatus, LatLng(37.4964860, 127.0283615));
+    return CafeInfo(id.toString(), cafeName, location, todayHours, weekHours, plugStatus, LatLng(37.4964860, 127.0283615));
   }
 }

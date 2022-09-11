@@ -4,10 +4,10 @@ class CafeInfo {
   String id;
   String name;
   String location;
-  String time;
-  List<String?> times;
-  String plug;
+  String todayHours;
+  List<String?> weekHours;
+  String plugStatus;
   LatLng? latLng;
 
-  CafeInfo(this.id, this.name, this.location, this.time, this.times, this.plug, this.latLng);
+  CafeInfo(this.id, this.name, this.location, this.todayHours, this.weekHours, this.plugStatus, this.latLng);
 }
