@@ -279,8 +279,10 @@ class _HomeState extends State<Home> {
 
   void _moveToCafeArea() {
     _controller.future.then((value) {
-      var camUpdate = CameraUpdate.toCameraPosition(CameraPosition(target: LatLng(37.4964860, 127.0283615)));
-      value.moveCamera(camUpdate);
+      setState(() {
+        var camUpdate = CameraUpdate.toCameraPosition(CameraPosition(target: LatLng(37.4964860, 127.0283615)));
+        value.moveCamera(camUpdate);
+      });
     });
 
 
