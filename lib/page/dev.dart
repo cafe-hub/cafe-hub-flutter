@@ -1,9 +1,9 @@
 import 'package:cafe_hub_flutter/page/detail.dart';
+import 'package:cafe_hub_flutter/page/test.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'home.dart';
-
 
 class Dev extends StatefulWidget {
   const Dev({Key? key}) : super(key: key);
@@ -18,6 +18,7 @@ class _State extends State<Dev> {
     return Scaffold(
       body: SafeArea(
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             TextButton(
                 onPressed: () => Get.to(() => Home(homeController: Get.find())),
@@ -26,7 +27,11 @@ class _State extends State<Dev> {
             TextButton(
                 onPressed: () => Get.to(() => Detail(detailController: Get.find())),
                 child: Text("상세 페이지")
-            )
+            ),
+            TextButton(
+                onPressed: () => Get.to(() => Test()),
+                child: Text("테스트용 페이지")
+            ),
           ],
         ),
       ),
