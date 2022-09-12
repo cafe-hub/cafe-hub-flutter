@@ -8,6 +8,7 @@ class CafeInfo {
   List<String> weekHours;
   String plugStatus;
   LatLng? latLng;
+  List<String> photoUrls;
 
-  CafeInfo(this.id, this.name, this.location, this.todayHours, this.weekHours, this.plugStatus, this.latLng);
+  CafeInfo(this.id, this.name, this.location, this.todayHours, this.weekHours, this.plugStatus, this.latLng, this.photoUrls);
 }

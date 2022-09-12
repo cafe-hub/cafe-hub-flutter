@@ -9,8 +9,6 @@ class DetailController extends GetxController {
 
   DetailController({required this.cafeInfo});
 
-  List<String> imageUrls = ['https://picsum.photos/360', 'https://picsum.photos/400'];
-
   var currentCarouselPage = 1.obs;
   //현재 사진 몇 페이지 보고 있는지 업데이트
   void updatePage(int page) {

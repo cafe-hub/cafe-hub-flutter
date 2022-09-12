@@ -24,7 +24,7 @@ class _DetailState extends State<Detail> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            cafeImages(widget.detailController.imageUrls),
+            cafeImages(widget.detailController.cafeInfo.photoUrls),
             location(),
             plugInfo(),
             openInfo(widget.detailController.cafeInfo.weekHours)

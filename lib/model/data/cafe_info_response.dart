@@ -50,6 +50,6 @@ class CafeInfoResponse {
     List<String> weekHours = [monday, tuesday, wednesday, thursday, friday, saturday, sunday].map((time) => time ?? "휴무일").toList();
     String? todayHours = weekHours[today-1];
 
-    return CafeInfo(id.toString(), cafeName, location, todayHours, weekHours, plugStatus, LatLng(37.4964860, 127.0283615));
+    return CafeInfo(id.toString(), cafeName, location, todayHours, weekHours, plugStatus, LatLng(37.4964860, 127.0283615), []);
   }
 }
