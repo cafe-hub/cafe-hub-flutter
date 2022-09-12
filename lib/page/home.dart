@@ -302,10 +302,6 @@ class _HomeState extends State<Home> {
     double longitude = cameraPositon.target.longitude;
     double latitude = cameraPositon.target.latitude;
 
-    print("ddddddddddddddddddddddddddddd ${longitude}, ${latitude}");
-    String abc = "127.05/37.51/127.06/37.50";
-    var fetchCafes = CafeService().fetchCafes(127.05,37.51,127.06,37.50);
-    print("aaaaaaaaaaaaaaaaaaaaaaa $fetchCafes");
   }
 }
 

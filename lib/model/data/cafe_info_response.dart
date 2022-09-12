@@ -48,7 +48,7 @@ class CafeInfoResponse {
         sunday = json['sunday'],
         plugStatus = json['plugStatus'] == "null" ? "콘센트 정보 없음" : json['plugStatus'],
         latLng = LatLng(json['latitude'], json['longitude']),
-        photoUrl = List<String>.from(json['photoUrl'].map((e) => e.toString()));
+        photoUrl = List<String>.from(json['photoUrl'] != null ? json['photoUrl'].map((e) => e.toString()) : []);
 
 
   CafeInfo toEntity() {
