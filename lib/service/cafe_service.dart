@@ -24,4 +24,25 @@ class CafeService{
     }
   }
 
+  //좌표 정보들을 넘겨 줘서 cafeInfo를 리스트 형태로 받아야 함.
+  Future<List<CafeInfo>?> fetchCafes(double topLeftLongitude, double topLeftLatitude, double bottomRightLongitude, double bottomRightLatitude) async{
+
+    var response = await client.get(Uri.parse("${NetworkUtil.baseUrl}/cafes/$topLeftLongitude/$topLeftLatitude/$bottomRightLongitude/$bottomRightLatitude"));
+
+    if(response.statusCode == 200) {
+      var jsonData = jsonDecode(utf8.decode(response.bodyBytes));
+      var data = ResponseWrapper.fromJson(jsonData).data as List;
+      var res = data.map<CafeInfoResponse>((e) => CafeInfoResponse.fromJson(e)).toList();
+
+      var result = res.map((e) => e.toEntity()).toList();
+      return result;
+    }else if(response.statusCode == 204){
+      print("조회되는 카페 없음");
+      return null;
+    }else{
+      print('연결 실패~~');
+      return null;
+    }
+  }
+
 }

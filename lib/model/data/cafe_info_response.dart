@@ -5,9 +5,8 @@ import 'package:naver_map_plugin/naver_map_plugin.dart';
 
 class CafeInfoResponse {
   int id;
-  String cafeName;
-  String location;
-  String plugStatus;
+  String? cafeName;
+  String? location;
   String? monday;
   String? tuesday;
   String? wednesday;
@@ -15,6 +14,8 @@ class CafeInfoResponse {
   String? friday;
   String? saturday;
   String? sunday;
+  String? plugStatus;
+  LatLng latLng;
   List<String> photoUrl;
 
   CafeInfoResponse({
@@ -29,6 +30,7 @@ class CafeInfoResponse {
     required this.saturday,
     required this.sunday,
     required this.plugStatus,
+    required this.latLng,
     required this.photoUrl
   });
   //CafeInfoResponse.fromJson(Map json) :
@@ -45,6 +47,7 @@ class CafeInfoResponse {
         saturday = json['saturday'],
         sunday = json['sunday'],
         plugStatus = json['plugStatus'] == "null" ? "콘센트 정보 없음" : json['plugStatus'],
+        latLng = LatLng(json['latitude'], json['longitude']),
         photoUrl = List<String>.from(json['photoUrl'].map((e) => e.toString()));
 
 
@@ -53,6 +56,6 @@ class CafeInfoResponse {
     List<String> weekHours = [monday, tuesday, wednesday, thursday, friday, saturday, sunday].map((time) => time ?? "휴무일").toList();
     String? todayHours = weekHours[today-1];
 
-    return CafeInfo(id.toString(), cafeName, location, todayHours, weekHours, plugStatus, LatLng(37.4964860, 127.0283615), photoUrl);
+    return CafeInfo(id.toString(), cafeName, location, todayHours, weekHours, plugStatus, latLng, photoUrl);
   }
 }
