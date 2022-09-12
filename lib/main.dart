@@ -37,7 +37,7 @@ class CafeHub extends StatelessWidget {
                 "금요일 10:00 - 17:30",
                 "토요일 휴무",
                 "일요일 휴무"
-              ], "많음", LatLng(37, 127), ['https://picsum.photos/360', 'https://picsum.photos/400'])
+              ], "많음", LatLng(37, 127), ['https://picsum.photos/360', 'https://picsum.photos/400']).obs
         ));
       }),
     );

@@ -31,10 +31,10 @@ class _DetailState extends State<Detail> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                cafeImages(widget.detailController.cafeInfo.photoUrls),
+                cafeImages(widget.detailController.cafeInfo.value.photoUrls),
                 location(),
                 plugInfo(),
-                openInfo(widget.detailController.cafeInfo.weekHours)
+                openInfo(widget.detailController.cafeInfo.value.weekHours)
               ],
             ),
           ),
@@ -48,7 +48,7 @@ class _DetailState extends State<Detail> {
         backgroundColor: Colors.white,
         centerTitle: true,
         title: Text(
-          widget.detailController.cafeInfo.name,
+          widget.detailController.cafeInfo.value.name,
           style: const TextStyle(
             color: Colors.black,
             fontWeight: FontWeight.bold,
@@ -102,7 +102,7 @@ class _DetailState extends State<Detail> {
               height: 16,
             ),
           ),
-          Text(widget.detailController.cafeInfo.location)
+          Text(widget.detailController.cafeInfo.value.location)
         ],
       ),
     );
@@ -122,7 +122,7 @@ class _DetailState extends State<Detail> {
               height: 16,
             ),
           ),
-          Text(widget.detailController.cafeInfo.plugStatus)
+          Text(widget.detailController.cafeInfo.value.plugStatus)
         ],
       ),
     );
@@ -146,7 +146,7 @@ class _DetailState extends State<Detail> {
           children: [
             Padding(
                 padding: EdgeInsets.only(bottom: 8),
-                child: Text(widget.detailController.cafeInfo.todayHours,
+                child: Text(widget.detailController.cafeInfo.value.todayHours,
                     style: TextStyle(color: ChColors.primary))),
             ...openAndClose()
           ],
@@ -156,7 +156,7 @@ class _DetailState extends State<Detail> {
   }
 
   List<Widget> openAndClose() {
-    return widget.detailController.cafeInfo.weekHours
+    return widget.detailController.cafeInfo.value.weekHours
         .map((info) =>
             Padding(padding: EdgeInsets.only(bottom: 8), child: Text(info)))
         .toList();
