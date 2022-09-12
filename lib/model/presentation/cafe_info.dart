@@ -5,7 +5,7 @@ class CafeInfo {
   String name;
   String location;
   String todayHours;
-  List<String?> weekHours;
+  List<String> weekHours;
   String plugStatus;
   LatLng? latLng;
 

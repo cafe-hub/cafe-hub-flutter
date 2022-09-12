@@ -1,18 +1,13 @@
 import 'dart:ffi';
 
+import 'package:cafe_hub_flutter/model/presentation/cafe_info.dart';
 import 'package:cafe_hub_flutter/service/service.dart';
 import 'package:get/get.dart';
 //상세조회
 class DetailController extends GetxController {
-  List<String> openAndCloseInfo = [
-    "월요일 10:00 - 17:30",
-    "화요일 10:00 - 17:30",
-    "수요일 10:00 - 17:30",
-    "목요일 10:00 - 17:30",
-    "금요일 10:00 - 17:30",
-    "토요일 휴무",
-    "일요일 휴무"
-  ].obs;
+  CafeInfo cafeInfo;
+
+  DetailController({required this.cafeInfo});
 
   List<String> imageUrls = ['https://picsum.photos/360', 'https://picsum.photos/400'];
 

@@ -1,5 +1,4 @@
 import 'dart:ffi';
-import 'dart:html';
 
 import 'package:cafe_hub_flutter/model/presentation/cafe_info.dart';
 import 'package:naver_map_plugin/naver_map_plugin.dart';
@@ -48,8 +47,8 @@ class CafeInfoResponse {
 
   CafeInfo toEntity() {
     int today = DateTime.now().weekday;
-    List<String?> weekHours = [monday, tuesday, wednesday, thursday, friday, saturday, sunday];
-    String? todayHours = weekHours[today-1] ?? "휴무일";
+    List<String> weekHours = [monday, tuesday, wednesday, thursday, friday, saturday, sunday].map((time) => time ?? "휴무일").toList();
+    String? todayHours = weekHours[today-1];
 
     return CafeInfo(id.toString(), cafeName, location, todayHours, weekHours, plugStatus, LatLng(37.4964860, 127.0283615));
   }

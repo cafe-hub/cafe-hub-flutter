@@ -20,14 +20,16 @@ class _DetailState extends State<Detail> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: appBar(),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          cafeImages(widget.detailController.imageUrls),
-          location(),
-          plugInfo(),
-          openInfo(widget.detailController.openAndCloseInfo)
-        ],
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            cafeImages(widget.detailController.imageUrls),
+            location(),
+            plugInfo(),
+            openInfo(widget.detailController.cafeInfo.weekHours)
+          ],
+        ),
       ),
     );
   }
@@ -137,18 +139,20 @@ class _DetailState extends State<Detail> {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Padding(
+            Padding(
                 padding: EdgeInsets.only(bottom: 8),
-                child: Text("영업중", style: TextStyle(color: ChColors.primary))),
-            ...openAndClose(list)
+                child: Text(widget.detailController.cafeInfo.todayHours, style: TextStyle(color: ChColors.primary))),
+            ...openAndClose()
           ],
         )
       ],
     );
   }
 
-  List<Widget> openAndClose(List<String> list) {
-    return list
+  List<Widget> openAndClose() {
+    print("sfd" + widget.detailController.cafeInfo.weekHours[0]);
+
+    return widget.detailController.cafeInfo.weekHours
         .map((info) =>
             Padding(padding: EdgeInsets.only(bottom: 8), child: Text(info)))
         .toList();
