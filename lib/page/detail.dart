@@ -20,7 +20,7 @@ class _DetailState extends State<Detail> {
   @override
   void initState() {
     print("initState");
-    widget.detailController.getCafeData(1);
+    widget.detailController.getCafeData(3);
   }
   
   @override
@@ -50,7 +50,7 @@ class _DetailState extends State<Detail> {
         backgroundColor: Colors.white,
         centerTitle: true,
         title: Text(
-          widget.detailController.cafeInfo.value.name,
+          widget.detailController.cafeInfo.value.name!,
           style: const TextStyle(
             color: Colors.black,
             fontWeight: FontWeight.bold,
@@ -104,7 +104,7 @@ class _DetailState extends State<Detail> {
               height: 16,
             ),
           ),
-          Text(widget.detailController.cafeInfo.value.location)
+          Text(widget.detailController.cafeInfo.value.location!)
         ],
       ),
     );
@@ -124,7 +124,7 @@ class _DetailState extends State<Detail> {
               height: 16,
             ),
           ),
-          Text(widget.detailController.cafeInfo.value.plugStatus)
+          Text(widget.detailController.cafeInfo.value.plugStatus!)
         ],
       ),
     );
@@ -148,7 +148,7 @@ class _DetailState extends State<Detail> {
           children: [
             Padding(
                 padding: EdgeInsets.only(bottom: 8),
-                child: Text(widget.detailController.cafeInfo.value.todayHours,
+                child: Text(widget.detailController.cafeInfo.value.todayHours!,
                     style: TextStyle(color: ChColors.primary))),
             ...openAndClose()
           ],

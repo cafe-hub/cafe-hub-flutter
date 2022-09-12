@@ -3,6 +3,7 @@ import 'dart:convert';
 
 import 'package:cafe_hub_flutter/controller/home_controller.dart';
 import 'package:cafe_hub_flutter/model/presentation/cafe_info.dart';
+import 'package:cafe_hub_flutter/service/cafe_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:naver_map_plugin/naver_map_plugin.dart';
@@ -28,7 +29,7 @@ class _HomeState extends State<Home> {
     _showLocationInfo(
         mContext ?? context,
         CafeInfo('123', '미스터디유커피', '인천 연수구 아카데미로 119', '10:30 ~ 17:30',[],
-            '콘센트 많음', null, []));
+            '콘센트 많음', LatLng(37.4964860, 127.0283615), []));
   }
 
   BuildContext? mContext;
@@ -216,7 +217,7 @@ class _HomeState extends State<Home> {
       Padding(
           padding: EdgeInsets.only(top: 16, bottom: 8),
           child: Text(
-            cafeInfo.name,
+            cafeInfo.name!,
             style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
           )),
       Row(
@@ -230,7 +231,7 @@ class _HomeState extends State<Home> {
               height: 16,
             ),
           ),
-          Text(cafeInfo.location)
+          Text(cafeInfo.location!)
         ],
       ),
       Padding(padding: EdgeInsets.only(bottom: 8)),
@@ -249,7 +250,7 @@ class _HomeState extends State<Home> {
                     height: 16,
                   ),
                 ),
-                Text(cafeInfo.todayHours)
+                Text(cafeInfo.todayHours!)
               ],
             ),
           ),
@@ -265,7 +266,7 @@ class _HomeState extends State<Home> {
                     height: 16,
                   ),
                 ),
-                Text(cafeInfo.plugStatus)
+                Text(cafeInfo.plugStatus!)
               ],
             ),
           )
@@ -298,6 +299,9 @@ class _HomeState extends State<Home> {
     double latitude = cameraPositon.target.latitude;
 
     print("ddddddddddddddddddddddddddddd ${longitude}, ${latitude}");
+    String abc = "127.05/37.51/127.06/37.50";
+    var fetchCafes = CafeService().fetchCafes(127.05,37.51,127.06,37.50);
+    print("aaaaaaaaaaaaaaaaaaaaaaa $fetchCafes");
   }
 }
 
