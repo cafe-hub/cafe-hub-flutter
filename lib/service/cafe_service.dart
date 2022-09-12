@@ -6,7 +6,7 @@ import 'package:cafe_hub_flutter/model/data/response_wrapper.dart';
 import 'package:http/http.dart' as http;
 import '../model/presentation/cafe_info.dart';
 
-class Service{
+class CafeService{
   var client = http.Client();
 
   Future<CafeInfo?> fetchCafe(int id) async{
@@ -23,4 +23,5 @@ class Service{
       return null;
     }
   }
+
 }
