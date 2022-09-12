@@ -21,4 +21,9 @@ class HomeController extends GetxController {
     cafes.value = await CafeService().fetchCafes(topLeftLongitude, topLeftLatitude, bottomRightLongitude, bottomRightLatitude) as List<CafeInfo>;
   }
 
+  Future<CafeInfo> getCafeDetailData(int id) async {
+    var res = await CafeService().fetchCafe(id);
+
+    return res!;
+  }
 }

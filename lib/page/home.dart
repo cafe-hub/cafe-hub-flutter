@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:cafe_hub_flutter/controller/detail_controller.dart';
 import 'package:cafe_hub_flutter/controller/home_controller.dart';
 import 'package:cafe_hub_flutter/model/presentation/cafe_info.dart';
 import 'package:cafe_hub_flutter/service/cafe_service.dart';
@@ -25,11 +26,10 @@ class _HomeState extends State<Home> {
   Completer<NaverMapController> _controller = Completer();
   MapType _mapType = MapType.Basic;
 
-  void _onMarkerTap(Marker? marker, Map<String, int?> iconSize) {
+  void _onMarkerTap(Marker? marker, Map<String, int?> iconSize) async {
     _showLocationInfo(
         mContext ?? context,
-        CafeInfo('123', '미스터디유커피', '인천 연수구 아카데미로 119', '10:30 ~ 17:30', [],
-            '콘센트 많음', LatLng(37.4964860, 127.0283615), []));
+        await widget.homeController.getCafeDetailData(int.parse(marker!.markerId)));
   }
 
   BuildContext? mContext;
