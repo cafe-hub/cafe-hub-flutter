@@ -6,6 +6,7 @@ import 'package:cafe_hub_flutter/model/presentation/cafe_info.dart';
 import 'package:cafe_hub_flutter/service/cafe_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 import 'package:naver_map_plugin/naver_map_plugin.dart';
 import 'package:permission_handler/permission_handler.dart';
 
@@ -24,11 +25,10 @@ class _HomeState extends State<Home> {
   Completer<NaverMapController> _controller = Completer();
   MapType _mapType = MapType.Basic;
 
-
   void _onMarkerTap(Marker? marker, Map<String, int?> iconSize) {
     _showLocationInfo(
         mContext ?? context,
-        CafeInfo('123', '미스터디유커피', '인천 연수구 아카데미로 119', '10:30 ~ 17:30',[],
+        CafeInfo('123', '미스터디유커피', '인천 연수구 아카데미로 119', '10:30 ~ 17:30', [],
             '콘센트 많음', LatLng(37.4964860, 127.0283615), []));
   }
 
@@ -69,13 +69,14 @@ class _HomeState extends State<Home> {
           mContext = context;
 
           return SafeArea(
-            child: Stack(alignment: Alignment.bottomCenter, children: [
+              child: Obx(
+            () => Stack(alignment: Alignment.bottomCenter, children: [
               NaverMap(
                 initLocationTrackingMode: LocationTrackingMode.Follow,
                 locationButtonEnable: true,
                 onMapCreated: onMapCreated,
                 mapType: _mapType,
-                onCameraIdle : _refreshCafe ,
+                onCameraIdle: _refreshCafe,
                 markers: widget.homeController.getMarkers(_onMarkerTap),
               ),
               Padding(
@@ -138,7 +139,7 @@ class _HomeState extends State<Home> {
                     ],
                   )),
             ]),
-          );
+          ));
         },
       ),
     );
@@ -156,7 +157,8 @@ class _HomeState extends State<Home> {
               child: ListView.builder(
                 itemCount: widget.homeController.cafes.length,
                 controller: controller, // set this too
-                itemBuilder: (_, i) => _listItem(widget.homeController.cafes[i]),
+                itemBuilder: (_, i) =>
+                    _listItem(widget.homeController.cafes[i]),
               ),
             );
           },
@@ -287,12 +289,12 @@ class _HomeState extends State<Home> {
   void _moveToCafeArea() {
     _controller.future.then((value) {
       setState(() {
-        var camUpdate = CameraUpdate.toCameraPosition(CameraPosition(target: LatLng(37.4964860, 127.0283615)));
+        var camUpdate = CameraUpdate.toCameraPosition(
+            CameraPosition(target: LatLng(37.4964860, 127.0283615)));
         value.moveCamera(camUpdate);
       });
     });
   }
-
 
   //사용자가 지도를 움직임에 따라, 지도의 중심 좌표를 반환하고, 그 중심 좌표를 기준으로 일정 영역 안의 카페를 다건 조회하여 불러오는 함수.
   //bottomRightLongitude > topLeftLongitude , topLeftLatitude > bottomRightLatitude
@@ -302,6 +304,7 @@ class _HomeState extends State<Home> {
     double longitude = cameraPositon.target.longitude;
     double latitude = cameraPositon.target.latitude;
 
+    widget.homeController.getCafes(
+        longitude - 0.1, latitude + 0.1, longitude + 0.1, latitude - 0.1);
   }
 }
-
