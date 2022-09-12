@@ -18,20 +18,20 @@ class Detail extends StatefulWidget {
 class _DetailState extends State<Detail> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: appBar(),
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            cafeImages(widget.detailController.cafeInfo.photoUrls),
-            location(),
-            plugInfo(),
-            openInfo(widget.detailController.cafeInfo.weekHours)
-          ],
-        ),
-      ),
-    );
+    return Obx(() => Scaffold(
+          appBar: appBar(),
+          body: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                cafeImages(widget.detailController.cafeInfo.photoUrls),
+                location(),
+                plugInfo(),
+                openInfo(widget.detailController.cafeInfo.weekHours)
+              ],
+            ),
+          ),
+        ));
   }
 
   AppBar appBar() {
@@ -40,9 +40,9 @@ class _DetailState extends State<Detail> {
         iconTheme: const IconThemeData(color: Colors.black),
         backgroundColor: Colors.white,
         centerTitle: true,
-        title: const Text(
-          "미스터디유커피",
-          style: TextStyle(
+        title: Text(
+          widget.detailController.cafeInfo.name,
+          style: const TextStyle(
             color: Colors.black,
             fontWeight: FontWeight.bold,
             fontSize: 20,
@@ -59,10 +59,10 @@ class _DetailState extends State<Detail> {
           decoration: BoxDecoration(
               color: Color(0x88000000),
               borderRadius: BorderRadius.circular(20)),
-          child: Obx(() => Text(
+          child: Text(
                 "${widget.detailController.currentCarouselPage}/${list.length}",
                 style: TextStyle(color: Colors.white),
-              )))
+              ))
     ]);
   }
 
@@ -77,10 +77,8 @@ class _DetailState extends State<Detail> {
         options: CarouselOptions(
             height: MediaQuery.of(context).size.width,
             viewportFraction: 1,
-            onPageChanged: (index, reason) => {
-              widget.detailController.updatePage(index + 1)
-            })
-    );
+            onPageChanged: (index, reason) =>
+                {widget.detailController.updatePage(index + 1)}));
   }
 
   Widget location() {
@@ -141,7 +139,8 @@ class _DetailState extends State<Detail> {
           children: [
             Padding(
                 padding: EdgeInsets.only(bottom: 8),
-                child: Text(widget.detailController.cafeInfo.todayHours, style: TextStyle(color: ChColors.primary))),
+                child: Text(widget.detailController.cafeInfo.todayHours,
+                    style: TextStyle(color: ChColors.primary))),
             ...openAndClose()
           ],
         )
@@ -150,8 +149,6 @@ class _DetailState extends State<Detail> {
   }
 
   List<Widget> openAndClose() {
-    print("sfd" + widget.detailController.cafeInfo.weekHours[0]);
-
     return widget.detailController.cafeInfo.weekHours
         .map((info) =>
             Padding(padding: EdgeInsets.only(bottom: 8), child: Text(info)))
