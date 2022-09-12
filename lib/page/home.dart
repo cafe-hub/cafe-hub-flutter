@@ -290,7 +290,8 @@ class _HomeState extends State<Home> {
     _controller.future.then((value) {
       setState(() {
         var camUpdate = CameraUpdate.toCameraPosition(
-            CameraPosition(target: LatLng(37.4964860, 127.0283615)));
+            //좌표 선정릉역
+            CameraPosition(target: LatLng(37.510181246, 127.043505829)));
         value.moveCamera(camUpdate);
       });
     });
