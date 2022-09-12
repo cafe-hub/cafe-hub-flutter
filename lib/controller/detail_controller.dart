@@ -1,7 +1,7 @@
 import 'dart:ffi';
 
 import 'package:cafe_hub_flutter/model/presentation/cafe_info.dart';
-import 'package:cafe_hub_flutter/service/service.dart';
+import 'package:cafe_hub_flutter/service/cafe_service.dart';
 import 'package:get/get.dart';
 //상세조회
 class DetailController extends GetxController {
@@ -16,7 +16,7 @@ class DetailController extends GetxController {
   }
 
   void getCafeData(int id) async {
-    var res = await Service().fetchCafe(id);
+    var res = await CafeService().fetchCafe(id);
     if(res != null) {
       cafeInfo.value = res;
     }

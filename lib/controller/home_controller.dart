@@ -1,7 +1,7 @@
 import 'package:cafe_hub_flutter/model/presentation/cafe_info.dart';
 import 'package:get/get.dart';
 import 'package:naver_map_plugin/naver_map_plugin.dart';
-import 'package:cafe_hub_flutter/service/service.dart';
+import 'package:cafe_hub_flutter/service/cafe_service.dart';
 //다건조회
 class HomeController extends GetxController {
   var bottomSheetVisibility = false.obs;
