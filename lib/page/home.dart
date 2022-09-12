@@ -209,12 +209,11 @@ class _HomeState extends State<Home> {
     );
   }
 
-  void _showLocationInfo(BuildContext context, CafeInfo cafeInfo) {
-    showBottomSheet(
+  void _showLocationInfo(BuildContext context, CafeInfo cafeInfo){
+    showModalBottomSheet(
         context: context,
-        builder: (context) {
+        builder: (BuildContext context) {
           return Container(
-              width: double.infinity,
               height: 120,
               decoration: BoxDecoration(
                   color: Colors.white, borderRadius: BorderRadius.circular(12)),
@@ -223,6 +222,21 @@ class _HomeState extends State<Home> {
                   child: Column(children: _cafeInfo(cafeInfo))));
         });
   }
+
+  // void _showLocationInfo(BuildContext context, CafeInfo cafeInfo) {
+  //   showBottomSheet(
+  //       context: context,
+  //       builder: (context) {
+  //         return Container(
+  //             width: double.infinity,
+  //             height: 120,
+  //             decoration: BoxDecoration(
+  //                 color: Colors.white, borderRadius: BorderRadius.circular(12)),
+  //             child: Padding(
+  //                 padding: EdgeInsets.symmetric(horizontal: 20),
+  //                 child: Column(children: _cafeInfo(cafeInfo))));
+  //       });
+  // }
 
   List<Widget> _cafeInfo(CafeInfo cafeInfo) {
     return [
@@ -304,7 +318,7 @@ class _HomeState extends State<Home> {
   }
 
   //지도에 보이는 영역만 카페를 다건조회하는 함수
-  void _refreshCafe() async {
+  Future<List<int?>> _refreshCafe() async {
     var controller = await _controller.future;
 
     // //현재 카메라 중심 좌표를 반환
@@ -321,5 +335,7 @@ class _HomeState extends State<Home> {
 
     widget.homeController.getCafes(
         topLeftLongitude, topLeftLatitude, bottomRightLongitude, bottomRightLatitude);
+
+    return [1,2,3];
   }
 }
