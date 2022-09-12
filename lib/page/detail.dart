@@ -41,6 +41,8 @@ class _DetailState extends State<Detail> {
         ));
   }
 
+
+
   AppBar appBar() {
     return AppBar(
         leading: const Icon(Icons.arrow_back_ios),

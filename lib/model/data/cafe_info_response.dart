@@ -31,8 +31,9 @@ class CafeInfoResponse {
     required this.plugStatus,
     required this.photoUrl
   });
-
-  CafeInfoResponse.fromJson(Map json) :
+  //CafeInfoResponse.fromJson(Map json) :
+  //자료형 안 써도 되는지 모르겠음
+  CafeInfoResponse.fromJson(Map<String, dynamic> json) :
         id = json['id'],
         cafeName = json['cafeName'],
         location = json['location'],

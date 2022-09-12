@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:ffi';
-
 import 'package:cafe_hub_flutter/common/network_util.dart';
 import 'package:cafe_hub_flutter/model/data/cafe_info_response.dart';
 import 'package:cafe_hub_flutter/model/data/response_wrapper.dart';

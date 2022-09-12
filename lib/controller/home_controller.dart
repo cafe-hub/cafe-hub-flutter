@@ -12,7 +12,7 @@ class HomeController extends GetxController {
             (cafeInfo) => Marker(
             markerId: cafeInfo.id,
             position: cafeInfo.latLng,
-            onMarkerTab: action)
+            onMarkerTab: action,)
     ).toList();
   }
 
