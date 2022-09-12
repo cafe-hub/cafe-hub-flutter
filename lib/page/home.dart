@@ -290,7 +290,7 @@ class _HomeState extends State<Home> {
 
 
   //사용자가 지도를 움직임에 따라, 지도의 중심 좌표를 반환하고, 그 중심 좌표를 기준으로 일정 영역 안의 카페를 다건 조회하여 불러오는 함수.
-  //topLeftLongitude > bottomRightLongitude , topLeftLatitude > bottomRightLatitude
+  //bottomRightLongitude > topLeftLongitude , topLeftLatitude > bottomRightLatitude
   void _refreshCafe() async {
     var controller = await _controller.future;
     var cameraPositon = await controller.getCameraPosition();
