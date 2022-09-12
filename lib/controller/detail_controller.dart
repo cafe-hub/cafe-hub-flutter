@@ -15,11 +15,10 @@ class DetailController extends GetxController {
     currentCarouselPage.value = page;
   }
 
-  void getCafeData(Long id) async {
-    var cafeInfo = await Service().fetchCafe(id);
-    if(cafeInfo != null){
-      //cafeInfo 데이터를 넣어야 함. 일단 땅땅
+  void getCafeData(int id) async {
+    var res = await Service().fetchCafe(id);
+    if(res != null) {
+      cafeInfo = res;
     }
   }
-  
 }

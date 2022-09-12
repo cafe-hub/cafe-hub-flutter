@@ -154,4 +154,9 @@ class _DetailState extends State<Detail> {
             Padding(padding: EdgeInsets.only(bottom: 8), child: Text(info)))
         .toList();
   }
+
+  @override
+  void initState() {
+    widget.detailController.getCafeData(1);
+  }
 }

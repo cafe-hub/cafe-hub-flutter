@@ -9,10 +9,10 @@ import '../model/presentation/cafe_info.dart';
 class Service{
   var client = http.Client();
 
-  Future<CafeInfo?> fetchCafe(Long id) async{
+  Future<CafeInfo?> fetchCafe(int id) async{
     var response = await client.get(Uri.parse("${NetworkUtil.baseUrl}/cafe/$id"));
 
-    if(response.statusCode == 200){
+    if(response.statusCode == 200) {
       var jsonData = jsonDecode(response.body);
       print('api연결 성공');
       return CafeInfoResponse.fromJson(jsonData).toEntity();
