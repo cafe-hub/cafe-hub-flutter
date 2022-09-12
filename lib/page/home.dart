@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:cafe_hub_flutter/controller/home_controller.dart';
 import 'package:cafe_hub_flutter/model/presentation/cafe_info.dart';
@@ -73,6 +74,7 @@ class _HomeState extends State<Home> {
                 locationButtonEnable: true,
                 onMapCreated: onMapCreated,
                 mapType: _mapType,
+                onCameraIdle : _refreshCafe ,
                 markers: widget.homeController.getMarkers(_onMarkerTap),
               ),
               Padding(
@@ -284,7 +286,18 @@ class _HomeState extends State<Home> {
         value.moveCamera(camUpdate);
       });
     });
+  }
 
 
+  //사용자가 지도를 움직임에 따라, 지도의 중심 좌표를 반환하고, 그 중심 좌표를 기준으로 일정 영역 안의 카페를 다건 조회하여 불러오는 함수.
+  //topLeftLongitude > bottomRightLongitude , topLeftLatitude > bottomRightLatitude
+  void _refreshCafe() async {
+    var controller = await _controller.future;
+    var cameraPositon = await controller.getCameraPosition();
+    double longitude = cameraPositon.target.longitude;
+    double latitude = cameraPositon.target.latitude;
+
+    print("ddddddddddddddddddddddddddddd ${longitude}, ${latitude}");
   }
 }
+

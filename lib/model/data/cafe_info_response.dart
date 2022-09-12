@@ -1,5 +1,4 @@
 import 'dart:ffi';
-import 'dart:html';
 
 import 'package:cafe_hub_flutter/model/presentation/cafe_info.dart';
 import 'package:naver_map_plugin/naver_map_plugin.dart';
@@ -32,12 +31,13 @@ class CafeInfoResponse {
     required this.sunday,
     required this.plugStatus
   });
-
-  CafeInfoResponse.fromJson(Map json) :
+  //CafeInfoResponse.fromJson(Map json) :
+  //자료형 안 써도 되는지 모르겠음
+  CafeInfoResponse.fromJson(Map<String, dynamic> json) :
         id = json['id'],
         cafeName = json['cafeName'],
-        location = json['cafeName'],
-        monday = json['cafeName'],
+        location = json['location'],
+        monday = json['monday'],
         tuesday = json['tuesday'],
         wednesday = json['wednesday'],
         thursday = json['thursday'],
