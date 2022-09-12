@@ -16,6 +16,13 @@ class Detail extends StatefulWidget {
 }
 
 class _DetailState extends State<Detail> {
+
+  @override
+  void initState() {
+    print("initState");
+    widget.detailController.getCafeData(1);
+  }
+  
   @override
   Widget build(BuildContext context) {
     return Obx(() => Scaffold(
@@ -95,7 +102,7 @@ class _DetailState extends State<Detail> {
               height: 16,
             ),
           ),
-          Text("인천 연수구 아카데미로 119")
+          Text(widget.detailController.cafeInfo.location)
         ],
       ),
     );
@@ -115,7 +122,7 @@ class _DetailState extends State<Detail> {
               height: 16,
             ),
           ),
-          Text("콘센트 많음")
+          Text(widget.detailController.cafeInfo.plugStatus)
         ],
       ),
     );
@@ -153,10 +160,5 @@ class _DetailState extends State<Detail> {
         .map((info) =>
             Padding(padding: EdgeInsets.only(bottom: 8), child: Text(info)))
         .toList();
-  }
-
-  @override
-  void initState() {
-    widget.detailController.getCafeData(1);
   }
 }
