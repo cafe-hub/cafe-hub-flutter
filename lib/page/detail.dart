@@ -1,6 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 
 import '../common/ChColors.dart';
@@ -45,7 +46,12 @@ class _DetailState extends State<Detail> {
 
   AppBar appBar() {
     return AppBar(
-        leading: const Icon(Icons.arrow_back_ios),
+        leading: IconButton(
+            icon: Icon(Icons.arrow_back_ios),
+          onPressed: () {
+                Get.back();
+              },
+        ),
         iconTheme: const IconThemeData(color: Colors.black),
         backgroundColor: Colors.white,
         centerTitle: true,
