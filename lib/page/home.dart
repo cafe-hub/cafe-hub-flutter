@@ -26,11 +26,16 @@ class _HomeState extends State<Home> {
   Completer<NaverMapController> _controller = Completer();
   MapType _mapType = MapType.Basic;
 
+  //똑같은 Marker클릭시 다시 부르지 않기
   void _onMarkerTap(Marker? marker, Map<String, int?> iconSize) async {
     _showLocationInfo(
         mContext ?? context,
-        await widget.homeController.getCafeDetailData(int.parse(marker!.markerId)));
+        await widget.homeController
+            .getCafeDetailData(int.parse(marker!.markerId)));
   }
+
+  //bottomSheet내려가게 하기
+  void _onMapTap(LatLng latLng) {}
 
   BuildContext? mContext;
 
@@ -78,6 +83,7 @@ class _HomeState extends State<Home> {
                 mapType: _mapType,
                 onCameraIdle: _refreshCafe,
                 markers: widget.homeController.getMarkers(_onMarkerTap),
+                onMapTap: _onMapTap,
               ),
               Padding(
                   padding: EdgeInsets.only(bottom: 24),
@@ -297,15 +303,23 @@ class _HomeState extends State<Home> {
     });
   }
 
-  //사용자가 지도를 움직임에 따라, 지도의 중심 좌표를 반환하고, 그 중심 좌표를 기준으로 일정 영역 안의 카페를 다건 조회하여 불러오는 함수.
-  //bottomRightLongitude > topLeftLongitude , topLeftLatitude > bottomRightLatitude
+  //지도에 보이는 영역만 카페를 다건조회하는 함수
   void _refreshCafe() async {
     var controller = await _controller.future;
-    var cameraPositon = await controller.getCameraPosition();
-    double longitude = cameraPositon.target.longitude;
-    double latitude = cameraPositon.target.latitude;
+
+    // //현재 카메라 중심 좌표를 반환
+    // var cameraPositon = await controller.getCameraPosition();
+    // double longitude = cameraPositon.target.longitude;
+    // double latitude = cameraPositon.target.latitude;
+
+    var visibleRegion = await controller.getVisibleRegion();
+
+    var bottomRightLatitude= visibleRegion.southwest.latitude;
+    var topLeftLatitude = visibleRegion.northeast.latitude;
+    var topLeftLongitude = visibleRegion.southwest.longitude;
+    var bottomRightLongitude = visibleRegion.northeast.longitude;
 
     widget.homeController.getCafes(
-        longitude - 0.1, latitude + 0.1, longitude + 0.1, latitude - 0.1);
+        topLeftLongitude, topLeftLatitude, bottomRightLongitude, bottomRightLatitude);
   }
 }
