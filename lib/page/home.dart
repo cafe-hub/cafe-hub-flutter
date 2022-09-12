@@ -208,7 +208,8 @@ class _HomeState extends State<Home> {
       ),
     );
   }
-
+  
+  //코드 보고 리뷰한 다음 문제 없으면 아래 기존 함수 삭제 부탁
   void _showLocationInfo(BuildContext context, CafeInfo cafeInfo){
     showModalBottomSheet(
         context: context,
