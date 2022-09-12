@@ -145,19 +145,23 @@ class _HomeState extends State<Home> {
 
   void _showList(BuildContext context) {
     showBottomSheet(
-        context: context,
-        builder: (context) {
-          return Container(
-              width: double.infinity,
-              decoration: BoxDecoration(
-                  color: Colors.white, borderRadius: BorderRadius.circular(12)),
-              child: SingleChildScrollView(
-                child: Column(
-                    children: widget.homeController.cafes
-                        .map((e) => _listItem(e))
-                        .toList()),
-              ));
-        });
+      context: context,
+      // isScrollControlled: true, // set this to true
+      builder: (_) {
+        return DraggableScrollableSheet(
+          expand: false,
+          builder: (_, controller) {
+            return Container(
+              child: ListView.builder(
+                itemCount: widget.homeController.cafes.length,
+                controller: controller, // set this too
+                itemBuilder: (_, i) => _listItem(widget.homeController.cafes[i]),
+              ),
+            );
+          },
+        );
+      },
+    );
   }
 
   Widget _listItem(CafeInfo cafeInfo) {
