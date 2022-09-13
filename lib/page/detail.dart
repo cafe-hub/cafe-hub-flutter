@@ -20,7 +20,6 @@ class _DetailState extends State<Detail> {
 
   @override
   void initState() {
-    print("initState");
     widget.detailController.getCafeData(3);
   }
   
@@ -117,6 +116,11 @@ class _DetailState extends State<Detail> {
   }
 
   Widget plugInfo() {
+    var plugStatus = widget.detailController.cafeInfo.value.plugStatus;
+    var plugInfoText = "null";
+    if(plugStatus == "null") plugInfoText = "콘센트 정보 없음";
+    if(plugStatus == "many") plugInfoText = "콘센트 많음";
+
     return Padding(
       padding: EdgeInsets.only(bottom: 8, left: 20, right: 20),
       child: Row(
@@ -130,7 +134,7 @@ class _DetailState extends State<Detail> {
               height: 16,
             ),
           ),
-          Text(widget.detailController.cafeInfo.value.plugStatus!)
+          Text(plugInfoText)
         ],
       ),
     );
