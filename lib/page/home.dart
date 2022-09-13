@@ -77,7 +77,7 @@ class _HomeState extends State<Home> {
               child: Obx(
             () => Stack(alignment: Alignment.bottomCenter, children: [
               NaverMap(
-                initLocationTrackingMode: LocationTrackingMode.Follow,
+                // initLocationTrackingMode: LocationTrackingMode.Follow,
                 locationButtonEnable: true,
                 onMapCreated: onMapCreated,
                 mapType: _mapType,
@@ -224,27 +224,12 @@ class _HomeState extends State<Home> {
         });
   }
 
-  // void _showLocationInfo(BuildContext context, CafeInfo cafeInfo) {
-  //   showBottomSheet(
-  //       context: context,
-  //       builder: (context) {
-  //         return Container(
-  //             width: double.infinity,
-  //             height: 120,
-  //             decoration: BoxDecoration(
-  //                 color: Colors.white, borderRadius: BorderRadius.circular(12)),
-  //             child: Padding(
-  //                 padding: EdgeInsets.symmetric(horizontal: 20),
-  //                 child: Column(children: _cafeInfo(cafeInfo))));
-  //       });
-  // }
-
   List<Widget> _cafeInfo(CafeInfo cafeInfo) {
     return [
       Padding(
           padding: EdgeInsets.only(top: 16, bottom: 8),
           child: Text(
-            cafeInfo.name!,
+            cafeInfo.name ?? "null",
             style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
           )),
       Row(
@@ -258,7 +243,7 @@ class _HomeState extends State<Home> {
               height: 16,
             ),
           ),
-          Text(cafeInfo.location!)
+          Text(cafeInfo.location ?? "null")
         ],
       ),
       Padding(padding: EdgeInsets.only(bottom: 8)),
@@ -293,7 +278,7 @@ class _HomeState extends State<Home> {
                     height: 16,
                   ),
                 ),
-                Text(cafeInfo.plugStatus!)
+                Text(cafeInfo.plugStatus ?? "null")
               ],
             ),
           )
