@@ -17,12 +17,11 @@ class Detail extends StatefulWidget {
 }
 
 class _DetailState extends State<Detail> {
-
   @override
   void initState() {
     widget.detailController.getCafeData(3);
   }
-  
+
   @override
   Widget build(BuildContext context) {
     return Obx(() => Scaffold(
@@ -34,22 +33,20 @@ class _DetailState extends State<Detail> {
                 cafeImages(widget.detailController.cafeInfo.value.photoUrls),
                 location(),
                 plugInfo(),
-                openInfo(widget.detailController.cafeInfo.value.weekHours)
+                openInfo()
               ],
             ),
           ),
         ));
   }
 
-
-
   AppBar appBar() {
     return AppBar(
         leading: IconButton(
-            icon: Icon(Icons.arrow_back_ios),
+          icon: Icon(Icons.arrow_back_ios),
           onPressed: () {
-                Get.back();
-              },
+            Get.back();
+          },
         ),
         iconTheme: const IconThemeData(color: Colors.black),
         backgroundColor: Colors.white,
@@ -74,9 +71,9 @@ class _DetailState extends State<Detail> {
               color: Color(0x88000000),
               borderRadius: BorderRadius.circular(20)),
           child: Text(
-                "${widget.detailController.currentCarouselPage}/${list.length}",
-                style: TextStyle(color: Colors.white),
-              ))
+            "${widget.detailController.currentCarouselPage}/${list.length}",
+            style: TextStyle(color: Colors.white),
+          ))
     ]);
   }
 
@@ -118,8 +115,8 @@ class _DetailState extends State<Detail> {
   Widget plugInfo() {
     var plugStatus = widget.detailController.cafeInfo.value.plugStatus;
     var plugInfoText = "null";
-    if(plugStatus == "null") plugInfoText = "콘센트 정보 없음";
-    if(plugStatus == "many") plugInfoText = "콘센트 많음";
+    if (plugStatus == "null") plugInfoText = "콘센트 정보 없음";
+    if (plugStatus == "many") plugInfoText = "콘센트 많음";
 
     return Padding(
       padding: EdgeInsets.only(bottom: 8, left: 20, right: 20),
@@ -140,7 +137,7 @@ class _DetailState extends State<Detail> {
     );
   }
 
-  Widget openInfo(List<String> list) {
+  Widget openInfo() {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -168,9 +165,15 @@ class _DetailState extends State<Detail> {
   }
 
   List<Widget> openAndClose() {
-    return widget.detailController.cafeInfo.value.weekHours
-        .map((info) =>
-            Padding(padding: EdgeInsets.only(bottom: 8), child: Text(info)))
-        .toList();
+    List<String> hours = widget.detailController.cafeInfo.value.weekHours;
+    List<String> days = ["월요일", "화요일", "수요일", "목요일", "금요일", "토요일", "일요일"];
+
+    return hours.asMap().entries.map((entry) {
+      int index = entry.key;
+
+      return Padding(
+          padding: EdgeInsets.only(bottom: 8),
+          child: Text("${days[index]} ${hours[index]}"));
+    }).toList();
   }
 }
