@@ -280,7 +280,7 @@ class _HomeState extends State<Home> {
                     height: 16,
                   ),
                 ),
-                Text(cafeInfo.todayHours!)
+                Text(cafeInfo.todayHours)
               ],
             ),
           ),

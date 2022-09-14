@@ -21,23 +21,22 @@ class CafeHub extends StatelessWidget {
       title: 'test',
       routes: {
         '/home': (context) => Home(homeController: Get.find()),
-        '/detail': (context) => Detail(detailController: Get.find(), cafeId: 11),
-        '/dev': (context) => Dev()
+        '/detail': (context) => Detail(detailController: Get.find(), cafeId: 11)
       },
-      initialRoute: '/dev',
+      initialRoute: '/home',
       initialBinding: BindingsBuilder(() {
         Get.put(HomeController());
         Get.put(DetailController(
-          cafeInfo: CafeInfo("1", "미스터디유커피", "인천 어딘가", "10:00 - 17:30",
+          cafeInfo: CafeInfo("null", "null", "null", "00:00 - 00:00",
               [
-                "월요일 10:00 - 17:30",
-                "화요일 10:00 - 17:30",
-                "수요일 10:00 - 17:30",
-                "목요일 10:00 - 17:30",
-                "금요일 10:00 - 17:30",
-                "토요일 휴무",
-                "일요일 휴무"
-              ], "많음", LatLng(37, 127), ['https://picsum.photos/360', 'https://picsum.photos/400']).obs
+                "00:00 - 00:00",
+                "00:00 - 00:00",
+                "00:00 - 00:00",
+                "00:00 - 00:00",
+                "00:00 - 00:00",
+                "00:00 - 00:00",
+                "00:00 - 00:00"
+              ], "null", LatLng(37, 127), ['https://picsum.photos/360', 'https://picsum.photos/400']).obs
         ));
       }),
     );

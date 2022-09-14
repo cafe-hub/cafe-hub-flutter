@@ -53,8 +53,10 @@ class CafeInfoResponse {
 
   CafeInfo toEntity() {
     int today = DateTime.now().weekday;
-    List<String> weekHours = [monday, tuesday, wednesday, thursday, friday, saturday, sunday].map((time) => time ?? "00:00 - 00:00").toList();
-    String? todayHours = weekHours[today-1];
+    List<String> weekHours = [monday, tuesday, wednesday, thursday, friday, saturday, sunday].map(
+            (time) => (time == "null" || time == null) ? "00:00 - 00:00" : time
+    ).toList();
+    String todayHours = weekHours[today-1];
 
     return CafeInfo(id.toString(), cafeName, location, todayHours, weekHours, plugStatus, latLng, photoUrl);
   }

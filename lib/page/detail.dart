@@ -192,6 +192,7 @@ class _DetailState extends State<Detail> {
     String currentTime = DateTime(now.year, now.month, now.day).toString().substring(0,10);
 
     String todayHour = widget.detailController.cafeInfo.value.todayHours.toString();
+    print("범인이냐? $todayHour");
     List<String> openClose = todayHour.split(" - ");
 
     String openTimeString = "$currentTime ${openClose[0].length == 4 ? "0" : ""}${openClose[0]}:00"; // "2012-02-27 13:27:00"
