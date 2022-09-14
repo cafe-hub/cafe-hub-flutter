@@ -1,3 +1,4 @@
+import 'package:cafe_hub_flutter/controller/home_controller.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -19,7 +20,7 @@ class Detail extends StatefulWidget {
 class _DetailState extends State<Detail> {
   @override
   void initState() {
-    widget.detailController.getCafeData(3);
+    widget.detailController.getCafeData(11);
   }
 
   @override
@@ -155,7 +156,7 @@ class _DetailState extends State<Detail> {
           children: [
             Padding(
                 padding: EdgeInsets.only(bottom: 8),
-                child: Text(widget.detailController.cafeInfo.value.todayHours!,
+                child: Text(nowCafeStatus(),
                     style: TextStyle(color: ChColors.primary))),
             ...openAndClose()
           ],
@@ -175,5 +176,30 @@ class _DetailState extends State<Detail> {
           padding: EdgeInsets.only(bottom: 8),
           child: Text("${days[index]} ${hours[index]}"));
     }).toList();
+  }
+
+  String nowCafeStatus() {
+    String nowCafeStatus = "운영 종료";
+
+    DateTime now = DateTime.now();
+    String currentTime = DateTime(now.year, now.month, now.day).toString().substring(0,10);
+
+
+    String todayHour = widget.detailController.cafeInfo.value.todayHours.toString();
+
+    if(todayHour != ""){
+      String openTimeString = "$currentTime ${todayHour.substring(0,5)}:00";//"2012-02-27 13:27:00"
+      DateTime open = DateTime.parse(openTimeString);
+
+      String closeTimeString = "$currentTime ${todayHour.substring(8,13)}:00";//"2012-02-27 13:27:00"
+      DateTime close = DateTime.parse(closeTimeString);
+
+      if(now.isAfter(open) && now.isBefore(close)){
+        nowCafeStatus="영업중";
+      }
+    }
+
+    //todayHour의 휴무 날일 때도 생각해봅시다. 이 코드가 정상인지,,,지금은 서버 죽어서 알 수 없음!
+    return nowCafeStatus;
   }
 }
