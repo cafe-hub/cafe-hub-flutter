@@ -33,6 +33,7 @@ class CafeInfoResponse {
     required this.latLng,
     required this.photoUrl
   });
+
   //CafeInfoResponse.fromJson(Map json) :
   //자료형 안 써도 되는지 모르겠음
   CafeInfoResponse.fromJson(Map<String, dynamic> json) :
@@ -46,10 +47,9 @@ class CafeInfoResponse {
         friday = json['friday'],
         saturday = json['saturday'],
         sunday = json['sunday'],
-        plugStatus = json['plugStatus'] == "null" ? "콘센트 정보 없음" : json['plugStatus'],
+        plugStatus = json['plugStatus'],
         latLng = LatLng(json['latitude'], json['longitude']),
         photoUrl = List<String>.from(json['photoUrl'] != null ? json['photoUrl'].map((e) => e.toString()) : []);
-
 
   CafeInfo toEntity() {
     int today = DateTime.now().weekday;
