@@ -1,10 +1,7 @@
 import 'dart:async';
-import 'dart:convert';
 
-import 'package:cafe_hub_flutter/controller/detail_controller.dart';
 import 'package:cafe_hub_flutter/controller/home_controller.dart';
 import 'package:cafe_hub_flutter/model/presentation/cafe_info.dart';
-import 'package:cafe_hub_flutter/service/cafe_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -162,13 +159,15 @@ class _HomeState extends State<Home> {
           builder: (_, controller) {
             return Container(
               child: ListView.builder(
+                padding: EdgeInsets.only(bottom: 24),
                 itemCount: widget.homeController.cafes.length,
                 controller: controller, // set this too
-                itemBuilder: (_, i) =>
-                    InkWell(
-                        child: _listItem(widget.homeController.cafes[i]),
-                        onTap: () => Get.to(() => Detail(detailController: Get.find(), cafeId: int.parse(widget.homeController.cafes[i].id))),
-                    ),
+                itemBuilder: (_, i) => InkWell(
+                  child: _listItem(widget.homeController.cafes[i]),
+                  onTap: () => Get.to(() => Detail(
+                      detailController: Get.find(),
+                      cafeId: int.parse(widget.homeController.cafes[i].id))),
+                ),
               ),
             );
           },
@@ -178,6 +177,8 @@ class _HomeState extends State<Home> {
   }
 
   Widget _listItem(CafeInfo cafeInfo) {
+    double imageSize = MediaQuery.of(context).size.width / 2 - 21;
+
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 20),
       child: Column(
@@ -189,20 +190,33 @@ class _HomeState extends State<Home> {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 ClipRRect(
-                  borderRadius: BorderRadius.circular(8),
-                  child: Image.network(
-                    'https://picsum.photos/360',
-                    width: MediaQuery.of(context).size.width / 2 - 21,
-                    height: MediaQuery.of(context).size.width / 2 - 21,
-                  ),
-                ),
+                    borderRadius: BorderRadius.circular(8),
+                    child: cafeInfo.photoUrls.isNotEmpty
+                        ? Image.network(
+                            cafeInfo.photoUrls[0],
+                            width: imageSize,
+                            height: imageSize,
+                            fit: BoxFit.cover,
+                          )
+                        : Image(
+                            image: AssetImage('assets/default_image.jpg'),
+                            width: imageSize,
+                            height: imageSize,
+                          )),
                 ClipRRect(
                   borderRadius: BorderRadius.circular(8),
-                  child: Image.network(
-                    'https://picsum.photos/360',
-                    width: MediaQuery.of(context).size.width / 2 - 21,
-                    height: MediaQuery.of(context).size.width / 2 - 21,
-                  ),
+                  child: cafeInfo.photoUrls.length > 1
+                      ? Image.network(
+                          cafeInfo.photoUrls[1],
+                          width: imageSize,
+                          height: imageSize,
+                          fit: BoxFit.cover,
+                        )
+                      : Image(
+                          image: AssetImage('assets/default_image.jpg'),
+                          width: imageSize,
+                          height: imageSize,
+                        ),
                 ),
               ],
             ),
@@ -212,9 +226,9 @@ class _HomeState extends State<Home> {
       ),
     );
   }
-  
+
   //코드 보고 리뷰한 다음 문제 없으면 아래 기존 함수 삭제 부탁
-  void _showLocationInfo(BuildContext context, CafeInfo cafeInfo){
+  void _showLocationInfo(BuildContext context, CafeInfo cafeInfo) {
     showModalBottomSheet(
         context: context,
         builder: (BuildContext context) {
@@ -318,15 +332,14 @@ class _HomeState extends State<Home> {
 
     var visibleRegion = await controller.getVisibleRegion();
 
-    var bottomRightLatitude= visibleRegion.southwest.latitude;
+    var bottomRightLatitude = visibleRegion.southwest.latitude;
     var topLeftLatitude = visibleRegion.northeast.latitude;
     var topLeftLongitude = visibleRegion.southwest.longitude;
     var bottomRightLongitude = visibleRegion.northeast.longitude;
 
-    widget.homeController.getCafes(
-        topLeftLongitude, topLeftLatitude, bottomRightLongitude, bottomRightLatitude);
+    widget.homeController.getCafes(topLeftLongitude, topLeftLatitude,
+        bottomRightLongitude, bottomRightLatitude);
 
-    return [1,2,3];
+    return [1, 2, 3];
   }
-
 }
