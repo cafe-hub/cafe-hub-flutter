@@ -10,8 +10,9 @@ import '../controller/detail_controller.dart';
 
 class Detail extends StatefulWidget {
   final DetailController detailController;
+  final int cafeId;
 
-  const Detail({Key? key, required this.detailController}) : super(key: key);
+  const Detail({Key? key, required this.detailController, required this.cafeId}) : super(key: key);
 
   @override
   State<Detail> createState() => _DetailState();
@@ -20,7 +21,7 @@ class Detail extends StatefulWidget {
 class _DetailState extends State<Detail> {
   @override
   void initState() {
-    widget.detailController.getCafeData(11);
+    widget.detailController.getCafeData(widget.cafeId);
   }
 
   @override
@@ -179,27 +180,26 @@ class _DetailState extends State<Detail> {
   }
 
   String nowCafeStatus() {
-    String nowCafeStatus = "운영 종료";
+    String nowCafeStatus = "영업 종료";
 
+    if(_isOpen()) nowCafeStatus="영업중";
+
+    return nowCafeStatus;
+  }
+
+  bool _isOpen() {
     DateTime now = DateTime.now();
     String currentTime = DateTime(now.year, now.month, now.day).toString().substring(0,10);
 
-
     String todayHour = widget.detailController.cafeInfo.value.todayHours.toString();
+    List<String> openClose = todayHour.split(" - ");
 
-    if(todayHour != ""){
-      String openTimeString = "$currentTime ${todayHour.substring(0,5)}:00";//"2012-02-27 13:27:00"
-      DateTime open = DateTime.parse(openTimeString);
+    String openTimeString = "$currentTime ${openClose[0].length == 4 ? "0" : ""}${openClose[0]}:00"; // "2012-02-27 13:27:00"
+    DateTime open = DateTime.parse(openTimeString);
 
-      String closeTimeString = "$currentTime ${todayHour.substring(8,13)}:00";//"2012-02-27 13:27:00"
-      DateTime close = DateTime.parse(closeTimeString);
+    String closeTimeString = "$currentTime ${openClose[1].length == 4 ? "0" : ""}${openClose[1]}:00"; // "2012-02-27 13:27:00"
+    DateTime close = DateTime.parse(closeTimeString);
 
-      if(now.isAfter(open) && now.isBefore(close)){
-        nowCafeStatus="영업중";
-      }
-    }
-
-    //todayHour의 휴무 날일 때도 생각해봅시다. 이 코드가 정상인지,,,지금은 서버 죽어서 알 수 없음!
-    return nowCafeStatus;
+    return now.isAfter(open) && now.isBefore(close);
   }
 }

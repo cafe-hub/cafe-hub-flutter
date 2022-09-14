@@ -12,6 +12,7 @@ import 'package:naver_map_plugin/naver_map_plugin.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 import '../common/ChColors.dart';
+import 'detail.dart';
 
 class Home extends StatefulWidget {
   final HomeController homeController;
@@ -164,7 +165,10 @@ class _HomeState extends State<Home> {
                 itemCount: widget.homeController.cafes.length,
                 controller: controller, // set this too
                 itemBuilder: (_, i) =>
-                    _listItem(widget.homeController.cafes[i]),
+                    InkWell(
+                        child: _listItem(widget.homeController.cafes[i]),
+                        onTap: () => Get.to(() => Detail(detailController: Get.find(), cafeId: int.parse(widget.homeController.cafes[i].id))),
+                    ),
               ),
             );
           },

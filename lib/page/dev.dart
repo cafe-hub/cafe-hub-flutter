@@ -25,7 +25,7 @@ class _State extends State<Dev> {
                 child: Text("지도")
             ),
             TextButton(
-                onPressed: () => Get.to(() => Detail(detailController: Get.find())),
+                onPressed: () => Get.to(() => Detail(detailController: Get.find(), cafeId: 11)),
                 child: Text("상세 페이지")
             ),
             TextButton(

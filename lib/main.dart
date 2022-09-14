@@ -21,14 +21,14 @@ class CafeHub extends StatelessWidget {
       title: 'test',
       routes: {
         '/home': (context) => Home(homeController: Get.find()),
-        '/detail': (context) => Detail(detailController: Get.find()),
+        '/detail': (context) => Detail(detailController: Get.find(), cafeId: 11),
         '/dev': (context) => Dev()
       },
       initialRoute: '/dev',
       initialBinding: BindingsBuilder(() {
         Get.put(HomeController());
         Get.put(DetailController(
-          cafeInfo: CafeInfo("1", "미스터디유커피", "인천 어딘가", "영업중",
+          cafeInfo: CafeInfo("1", "미스터디유커피", "인천 어딘가", "10:00 - 17:30",
               [
                 "월요일 10:00 - 17:30",
                 "화요일 10:00 - 17:30",
