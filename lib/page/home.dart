@@ -232,17 +232,26 @@ class _HomeState extends State<Home> {
     showModalBottomSheet(
         context: context,
         builder: (BuildContext context) {
-          return Container(
-              height: 120,
-              decoration: BoxDecoration(
-                  color: Colors.white, borderRadius: BorderRadius.circular(12)),
-              child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 20),
-                  child: Column(children: _cafeInfo(cafeInfo))));
+          return InkWell(
+            onTap: () => Get.to(() => Detail(detailController: Get.find(), cafeId: int.parse(cafeInfo.id))),
+            child: Container(
+                height: 120,
+                decoration: BoxDecoration(
+                    color: Colors.white, borderRadius: BorderRadius.circular(12)),
+                child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20),
+                    child: Column(children: _cafeInfo(cafeInfo)))),
+          );
         });
   }
 
   List<Widget> _cafeInfo(CafeInfo cafeInfo) {
+    var plugStatus = cafeInfo.plugStatus;
+    var plugInfoText = "null";
+
+    if (plugStatus == "null") plugInfoText = "콘센트 정보 없음";
+    if (plugStatus == "many") plugInfoText = "콘센트 많음";
+
     return [
       Padding(
           padding: EdgeInsets.only(top: 16, bottom: 8),
@@ -296,7 +305,7 @@ class _HomeState extends State<Home> {
                     height: 16,
                   ),
                 ),
-                Text(cafeInfo.plugStatus ?? "null")
+                Text(plugInfoText)
               ],
             ),
           )
