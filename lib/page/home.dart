@@ -67,84 +67,91 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Builder(
-        builder: (context) {
-          mContext = context;
+      body: WillPopScope(
+        onWillPop: () {
+          Scaffold.of(mContext ?? context).showBodyScrim(false, 0.0);
 
-          return SafeArea(
-              child: Obx(
-            () => Stack(alignment: Alignment.bottomCenter, children: [
-              NaverMap(
-                // initLocationTrackingMode: LocationTrackingMode.Follow,
-                locationButtonEnable: true,
-                onMapCreated: onMapCreated,
-                mapType: _mapType,
-                onCameraIdle: _refreshCafe,
-                markers: widget.homeController.getMarkers(_onMarkerTap),
-                onMapTap: _onMapTap,
-              ),
-              Padding(
-                  padding: EdgeInsets.only(bottom: 24),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Container(
-                        width: 48,
-                        height: 48,
-                        margin: EdgeInsets.only(left: 16),
-                      ),
-                      ButtonTheme(
-                        minWidth: 100,
-                        height: 32,
-                        child: OutlinedButton(
-                          style: OutlinedButton.styleFrom(
-                              backgroundColor: Colors.white,
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(16)),
-                              side: BorderSide(
-                                  width: 1,
-                                  color: ChColors.gray100,
-                                  style: BorderStyle.solid)),
-                          child: Text(
-                            "목록 보기",
-                            style: TextStyle(color: ChColors.black),
-                          ),
-                          onPressed: () {
-                            _showList(context);
-                          },
-                        ),
-                      ),
-                      Container(
-                          height: 48,
+          return Future(() => true);
+        },
+        child: Builder(
+          builder: (context) {
+            mContext = context;
+
+            return SafeArea(
+                child: Obx(
+              () => Stack(alignment: Alignment.bottomCenter, children: [
+                NaverMap(
+                  // initLocationTrackingMode: LocationTrackingMode.Follow,
+                  locationButtonEnable: true,
+                  onMapCreated: onMapCreated,
+                  mapType: _mapType,
+                  onCameraIdle: _refreshCafe,
+                  markers: widget.homeController.getMarkers(_onMarkerTap),
+                  onMapTap: _onMapTap,
+                ),
+                Padding(
+                    padding: EdgeInsets.only(bottom: 24),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Container(
                           width: 48,
-                          padding: EdgeInsets.only(left: 2),
-                          margin: EdgeInsets.only(bottom: 20, right: 16),
-                          child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              primary: Colors.white,
-                              side: BorderSide(
-                                  width: 1,
-                                  color: ChColors.gray100,
-                                  style: BorderStyle.solid),
-                              elevation: 2,
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(4)),
+                          height: 48,
+                          margin: EdgeInsets.only(left: 16),
+                        ),
+                        ButtonTheme(
+                          minWidth: 100,
+                          height: 32,
+                          child: OutlinedButton(
+                            style: OutlinedButton.styleFrom(
+                                backgroundColor: Colors.white,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(16)),
+                                side: BorderSide(
+                                    width: 1,
+                                    color: ChColors.gray100,
+                                    style: BorderStyle.solid)),
+                            child: Text(
+                              "목록 보기",
+                              style: TextStyle(color: ChColors.black),
                             ),
                             onPressed: () {
-                              _moveToCafeArea();
+                              _showList(context);
                             },
-                            child: SvgPicture.asset(
-                              'assets/coffee.svg',
-                              color: ChColors.black,
-                              width: 24,
-                              height: 24,
-                            ),
-                          ))
-                    ],
-                  )),
-            ]),
-          ));
-        },
+                          ),
+                        ),
+                        Container(
+                            height: 48,
+                            width: 48,
+                            padding: EdgeInsets.only(left: 2),
+                            margin: EdgeInsets.only(bottom: 20, right: 16),
+                            child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                primary: Colors.white,
+                                side: BorderSide(
+                                    width: 1,
+                                    color: ChColors.gray100,
+                                    style: BorderStyle.solid),
+                                elevation: 2,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(4)),
+                              ),
+                              onPressed: () {
+                                _moveToCafeArea();
+                              },
+                              child: SvgPicture.asset(
+                                'assets/coffee.svg',
+                                color: ChColors.black,
+                                width: 24,
+                                height: 24,
+                              ),
+                            ))
+                      ],
+                    )),
+              ]),
+            ));
+          },
+        ),
       ),
     );
   }
