@@ -83,7 +83,6 @@ class _HomeState extends State<Home> {
                   mapType: _mapType,
                   onCameraIdle: _refreshCafe,
                   markers: widget.homeController.getMarkers(_onMarkerTap),
-                  onMapTap: _onMapTap,
                 ),
                 Padding(
                     padding: EdgeInsets.only(bottom: 24),
