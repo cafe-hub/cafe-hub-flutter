@@ -216,86 +216,63 @@ class _HomeState extends State<Home> {
                 ClipRRect(
                     borderRadius: BorderRadius.circular(8),
                     child: cafeInfo.photoUrls.isNotEmpty
-                        ? Image.network(
-                            cafeInfo.photoUrls[0],
-                            width: imageSize,
-                            height: imageSize,
-                            fit: BoxFit.cover,
-                            errorBuilder: (context, exception, stackTrace) {
-                              return Container(
-                                alignment: Alignment.center,
-                                padding: EdgeInsets.all(20),
-                                width: imageSize,
-                                height: imageSize,
-                                child: Text("이미지를 가져오는데 실패했어요 ㅠㅠ"),
-                              );
-                            },
-                            loadingBuilder: (context, child, loadingProgress) {
-                              if (loadingProgress == null) return child;
-
-                              return Container(
-                                width: imageSize,
-                                height: imageSize,
-                                padding: EdgeInsets.all(48),
-                                child: CircularProgressIndicator(
-                                  color: ChColors.primary,
-                                  value: loadingProgress.expectedTotalBytes !=
-                                          null
-                                      ? loadingProgress.cumulativeBytesLoaded /
-                                          loadingProgress.expectedTotalBytes!
-                                      : null,
-                                ),
-                              );
-                            },
-                          )
-                        : Image(
-                            image: AssetImage('assets/default_image.jpg'),
-                            width: imageSize,
-                            height: imageSize,
-                          )),
+                        ? _cafeImage(cafeInfo.photoUrls[0], imageSize)
+                        : _defaultImage(imageSize)),
                 ClipRRect(
-                  borderRadius: BorderRadius.circular(8),
-                  child: cafeInfo.photoUrls.length > 1
-                      ? Image.network(cafeInfo.photoUrls[1],
-                          width: imageSize,
-                          height: imageSize,
-                          fit: BoxFit.cover,
-                          errorBuilder: (context, exception, stackTrace) {
-                          return Container(
-                            alignment: Alignment.center,
-                            padding: EdgeInsets.all(20),
-                            width: imageSize,
-                            height: imageSize,
-                            child: Text("이미지를 가져오는데 실패했어요 ㅠㅠ"),
-                          );
-                        }, loadingBuilder: (context, child, loadingProgress) {
-                          if (loadingProgress == null) return child;
-
-                          return Container(
-                            width: imageSize,
-                            height: imageSize,
-                            padding: EdgeInsets.all(48),
-                            child: CircularProgressIndicator(
-                              color: ChColors.primary,
-                              value: loadingProgress.expectedTotalBytes != null
-                                  ? loadingProgress.cumulativeBytesLoaded /
-                                      loadingProgress.expectedTotalBytes!
-                                  : null,
-                            ),
-                          );
-                        })
-                      : Image(
-                          image: AssetImage('assets/default_image.jpg'),
-                          width: imageSize,
-                          height: imageSize,
-                        ),
-                ),
+                    borderRadius: BorderRadius.circular(8),
+                    child: cafeInfo.photoUrls.length > 1
+                        ? _cafeImage(cafeInfo.photoUrls[1], imageSize)
+                        : _defaultImage(imageSize)),
               ],
             ),
           ),
           ..._cafeInfo(cafeInfo)
         ],
       ),
+    );
+  }
+
+  Widget _cafeImage(String imageUrl, double imageSize) {
+    return Image.network(imageUrl,
+        width: imageSize,
+        height: imageSize,
+        fit: BoxFit.cover,
+        errorBuilder: (context, exception, stackTrace) =>
+            _imageError(context, exception, stackTrace, imageSize),
+        loadingBuilder: (context, child, loadingProgress) {
+          if (loadingProgress == null) return child;
+
+          return Container(
+            width: imageSize,
+            height: imageSize,
+            padding: EdgeInsets.all(48),
+            child: CircularProgressIndicator(
+              color: ChColors.primary,
+              value: loadingProgress.expectedTotalBytes != null
+                  ? loadingProgress.cumulativeBytesLoaded /
+                      loadingProgress.expectedTotalBytes!
+                  : null,
+            ),
+          );
+        });
+  }
+
+  Widget _defaultImage(double imageSize) {
+    return Image(
+      image: AssetImage('assets/default_image.jpg'),
+      width: imageSize,
+      height: imageSize,
+    );
+  }
+
+  Widget _imageError(BuildContext context, Object exception,
+      StackTrace? stackTrace, double imageSize) {
+    return Container(
+      alignment: Alignment.center,
+      padding: EdgeInsets.all(20),
+      width: imageSize,
+      height: imageSize,
+      child: Text("이미지를 가져오는데 실패했어요 ㅠㅠ"),
     );
   }
 
