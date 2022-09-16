@@ -221,6 +221,15 @@ class _HomeState extends State<Home> {
                             width: imageSize,
                             height: imageSize,
                             fit: BoxFit.cover,
+                            errorBuilder: (context, exception, stackTrace) {
+                              return Container(
+                                alignment: Alignment.center,
+                                padding: EdgeInsets.all(20),
+                                width: imageSize,
+                                height: imageSize,
+                                child: Text("이미지를 가져오는데 실패했어요 ㅠㅠ"),
+                              );
+                            },
                             loadingBuilder: (context, child, loadingProgress) {
                               if (loadingProgress == null) return child;
 
@@ -251,7 +260,15 @@ class _HomeState extends State<Home> {
                           width: imageSize,
                           height: imageSize,
                           fit: BoxFit.cover,
-                          loadingBuilder: (context, child, loadingProgress) {
+                          errorBuilder: (context, exception, stackTrace) {
+                          return Container(
+                            alignment: Alignment.center,
+                            padding: EdgeInsets.all(20),
+                            width: imageSize,
+                            height: imageSize,
+                            child: Text("이미지를 가져오는데 실패했어요 ㅠㅠ"),
+                          );
+                        }, loadingBuilder: (context, child, loadingProgress) {
                           if (loadingProgress == null) return child;
 
                           return Container(
