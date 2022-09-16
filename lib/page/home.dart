@@ -181,10 +181,10 @@ class _HomeState extends State<Home> {
             height: 32,
             child: TextButton(
               style: TextButton.styleFrom(
-                  backgroundColor: ChColors.primary,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(16)),
-                  ),
+                backgroundColor: ChColors.primary,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(16)),
+              ),
               child: Text(
                 "지도 보기",
                 style: TextStyle(color: Colors.white),
@@ -221,6 +221,23 @@ class _HomeState extends State<Home> {
                             width: imageSize,
                             height: imageSize,
                             fit: BoxFit.cover,
+                            loadingBuilder: (context, child, loadingProgress) {
+                              if (loadingProgress == null) return child;
+
+                              return Container(
+                                width: imageSize,
+                                height: imageSize,
+                                padding: EdgeInsets.all(48),
+                                child: CircularProgressIndicator(
+                                  color: ChColors.primary,
+                                  value: loadingProgress.expectedTotalBytes !=
+                                          null
+                                      ? loadingProgress.cumulativeBytesLoaded /
+                                          loadingProgress.expectedTotalBytes!
+                                      : null,
+                                ),
+                              );
+                            },
                           )
                         : Image(
                             image: AssetImage('assets/default_image.jpg'),
@@ -230,12 +247,26 @@ class _HomeState extends State<Home> {
                 ClipRRect(
                   borderRadius: BorderRadius.circular(8),
                   child: cafeInfo.photoUrls.length > 1
-                      ? Image.network(
-                          cafeInfo.photoUrls[1],
+                      ? Image.network(cafeInfo.photoUrls[1],
                           width: imageSize,
                           height: imageSize,
                           fit: BoxFit.cover,
-                        )
+                          loadingBuilder: (context, child, loadingProgress) {
+                          if (loadingProgress == null) return child;
+
+                          return Container(
+                            width: imageSize,
+                            height: imageSize,
+                            padding: EdgeInsets.all(48),
+                            child: CircularProgressIndicator(
+                              color: ChColors.primary,
+                              value: loadingProgress.expectedTotalBytes != null
+                                  ? loadingProgress.cumulativeBytesLoaded /
+                                      loadingProgress.expectedTotalBytes!
+                                  : null,
+                            ),
+                          );
+                        })
                       : Image(
                           image: AssetImage('assets/default_image.jpg'),
                           width: imageSize,
