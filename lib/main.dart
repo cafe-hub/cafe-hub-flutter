@@ -1,16 +1,20 @@
 import 'package:cafe_hub_flutter/controller/home_controller.dart';
 import 'package:cafe_hub_flutter/model/presentation/cafe_info.dart';
 import 'package:cafe_hub_flutter/page/detail.dart';
-import 'package:cafe_hub_flutter/page/dev.dart';
 import 'package:cafe_hub_flutter/page/home.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:naver_map_plugin/naver_map_plugin.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 import 'controller/detail_controller.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  //세션 시간 일주알로 늘리는 거..오바지..?ㅎㅎㅎㅎ
+  //FirebaseAnalytics.instance.setSessionTimeoutDuration(timeout);
   runApp(CafeHub());
 }
 
@@ -18,6 +22,7 @@ class CafeHub extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+
       title: 'test',
       routes: {
         '/home': (context) => Home(homeController: Get.find()),

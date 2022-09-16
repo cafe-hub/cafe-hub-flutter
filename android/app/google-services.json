@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "160995272703",
+    "project_id": "cafe-hub-13450",
+    "storage_bucket": "cafe-hub-13450.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:160995272703:android:22d54c674d57f94b6729ca",
+        "android_client_info": {
+          "package_name": "com.susanghan.cafehub"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "160995272703-72jkku6p3gk719a2gvg8ugj15sjqdhid.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB1I6Os7I0z17GeA5momsftC8hOgqe33qc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "160995272703-72jkku6p3gk719a2gvg8ugj15sjqdhid.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "160995272703-e5q0mb740fq36jcb2a1jqt9trvb5ds9q.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.susanghan.cafeghub"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
