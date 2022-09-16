@@ -24,16 +24,12 @@ class _HomeState extends State<Home> {
   Completer<NaverMapController> _controller = Completer();
   MapType _mapType = MapType.Basic;
 
-  //똑같은 Marker클릭시 다시 부르지 않기
   void _onMarkerTap(Marker? marker, Map<String, int?> iconSize) async {
     _showLocationInfo(
         mContext ?? context,
         await widget.homeController
             .getCafeDetailData(int.parse(marker!.markerId)));
   }
-
-  //bottomSheet내려가게 하기
-  void _onMapTap(LatLng latLng) {}
 
   BuildContext? mContext;
 
