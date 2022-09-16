@@ -94,8 +94,8 @@ class _HomeState extends State<Home> {
                           height: 48,
                           margin: EdgeInsets.only(left: 16),
                         ),
-                        ButtonTheme(
-                          minWidth: 100,
+                        Container(
+                          width: 100,
                           height: 32,
                           child: OutlinedButton(
                             style: OutlinedButton.styleFrom(
@@ -156,24 +156,46 @@ class _HomeState extends State<Home> {
       context: context,
       // isScrollControlled: true, // set this to true
       builder: (_) {
-        return DraggableScrollableSheet(
-          expand: false,
-          builder: (_, controller) {
-            return Container(
-              child: ListView.builder(
-                padding: EdgeInsets.only(bottom: 24),
-                itemCount: widget.homeController.cafes.length,
-                controller: controller, // set this too
-                itemBuilder: (_, i) => InkWell(
-                  child: _listItem(widget.homeController.cafes[i]),
-                  onTap: () => Get.to(() => Detail(
-                      detailController: Get.find(),
-                      cafeId: int.parse(widget.homeController.cafes[i].id))),
+        return Stack(alignment: Alignment.bottomCenter, children: [
+          DraggableScrollableSheet(
+            expand: false,
+            builder: (_, controller) {
+              return Container(
+                child: ListView.builder(
+                  padding: EdgeInsets.only(bottom: 24),
+                  itemCount: widget.homeController.cafes.length,
+                  controller: controller, // set this too
+                  itemBuilder: (_, i) => InkWell(
+                    child: _listItem(widget.homeController.cafes[i]),
+                    onTap: () => Get.to(() => Detail(
+                        detailController: Get.find(),
+                        cafeId: int.parse(widget.homeController.cafes[i].id))),
+                  ),
                 ),
+              );
+            },
+          ),
+          Container(
+            margin: EdgeInsets.only(bottom: 24),
+            width: 100,
+            height: 32,
+            child: TextButton(
+              style: TextButton.styleFrom(
+                  backgroundColor: ChColors.primary,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(16)),
+                  ),
+              child: Text(
+                "지도 보기",
+                style: TextStyle(color: Colors.white),
               ),
-            );
-          },
-        );
+              onPressed: () {
+                Scaffold.of(mContext ?? context).showBodyScrim(false, 0.0);
+                Get.back();
+              },
+            ),
+          )
+        ]);
       },
     );
   }
@@ -235,11 +257,13 @@ class _HomeState extends State<Home> {
         context: context,
         builder: (BuildContext context) {
           return InkWell(
-            onTap: () => Get.to(() => Detail(detailController: Get.find(), cafeId: int.parse(cafeInfo.id))),
+            onTap: () => Get.to(() => Detail(
+                detailController: Get.find(), cafeId: int.parse(cafeInfo.id))),
             child: Container(
                 height: 120,
                 decoration: BoxDecoration(
-                    color: Colors.white, borderRadius: BorderRadius.circular(12)),
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(12)),
                 child: Padding(
                     padding: EdgeInsets.symmetric(horizontal: 20),
                     child: Column(children: _cafeInfo(cafeInfo)))),
