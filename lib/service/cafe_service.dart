@@ -38,7 +38,7 @@ class CafeService{
       return result;
     }else if(response.statusCode == 204){
       print("조회되는 카페 없음");
-      return null;
+      return [];
     }else{
       print('연결 실패~~');
       return null;

@@ -161,7 +161,9 @@ class _HomeState extends State<Home> {
             expand: false,
             builder: (_, controller) {
               return Container(
-                child: ListView.builder(
+                alignment: Alignment.center,
+                width: double.infinity,
+                child: widget.homeController.cafes.isNotEmpty ? ListView.builder(
                   padding: EdgeInsets.only(bottom: 24),
                   itemCount: widget.homeController.cafes.length,
                   controller: controller, // set this too
@@ -171,7 +173,7 @@ class _HomeState extends State<Home> {
                         detailController: Get.find(),
                         cafeId: int.parse(widget.homeController.cafes[i].id))),
                   ),
-                ),
+                ) : Text("해당 지역에 등록된 카페가 없어요..."),
               );
             },
           ),
@@ -186,12 +188,13 @@ class _HomeState extends State<Home> {
                     borderRadius: BorderRadius.circular(16)),
               ),
               child: Text(
-                "지도 보기",
+                widget.homeController.cafes.isNotEmpty ? "지도 보기" : "지도 이동",
                 style: TextStyle(color: Colors.white),
               ),
               onPressed: () {
                 Scaffold.of(mContext ?? context).showBodyScrim(false, 0.0);
                 Get.back();
+                if(widget.homeController.cafes.isEmpty) _moveToCafeArea();
               },
             ),
           )
