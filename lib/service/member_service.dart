@@ -11,7 +11,6 @@ class MemberService {
 
     final String? storedUuid = prefs.getString('deviceUuid');
     var uuid = storedUuid ?? Uuid().v4();
-    print("으응 ${uuid}");
 
     await prefs.setString('deviceUuid', uuid);
 
