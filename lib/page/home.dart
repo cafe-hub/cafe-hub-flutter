@@ -25,6 +25,12 @@ class _HomeState extends State<Home> {
   MapType _mapType = MapType.Basic;
 
   void _onMarkerTap(Marker? marker, Map<String, int?> iconSize) async {
+    widget.homeController.previousSelectedCafe?.isSelected.value = false;
+    var target = widget.homeController.cafes.firstWhere((cafeInfo) => cafeInfo.id == marker!.markerId);
+    target.isSelected.value = true;
+
+    widget.homeController.previousSelectedCafe = target;
+
     _showLocationInfo(
         mContext ?? context,
         await widget.homeController

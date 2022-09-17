@@ -6,14 +6,17 @@ import 'package:cafe_hub_flutter/service/cafe_service.dart';
 class HomeController extends GetxController {
   var bottomSheetVisibility = false.obs;
   var cafes = <CafeInfo>[].obs;
-  OverlayImage? overlayImage;
+  CafeInfo? previousSelectedCafe;
+  OverlayImage? markerImage;
+  OverlayImage? selectedMarkerImage;
 
   HomeController() {
     _setOverlayImage();
   }
 
   _setOverlayImage() async {
-    overlayImage = await OverlayImage.fromAssetImage(assetName: "assets/marker.png");
+    markerImage = await OverlayImage.fromAssetImage(assetName: "assets/marker.png");
+    selectedMarkerImage = await OverlayImage.fromAssetImage(assetName: "assets/marker_filled.png");
   }
 
   List<Marker> getMarkers(void Function(Marker? marker, Map<String, int?> iconSize) action) {
@@ -22,7 +25,9 @@ class HomeController extends GetxController {
             markerId: cafeInfo.id,
             position: cafeInfo.latLng,
             onMarkerTab: action,
-            icon: overlayImage)
+            icon: cafeInfo.isSelected.value ? selectedMarkerImage : markerImage,
+            width: cafeInfo.isSelected.value ? 48 : 24,
+            height: cafeInfo.isSelected.value ? 48 : 24)
     ).toList();
   }
 

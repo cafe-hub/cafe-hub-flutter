@@ -1,3 +1,4 @@
+import 'package:get/get.dart';
 import 'package:naver_map_plugin/naver_map_plugin.dart';
 
 class CafeInfo {
@@ -9,6 +10,7 @@ class CafeInfo {
   String? plugStatus;
   LatLng latLng;
   List<String> photoUrls;
+  RxBool isSelected = false.obs;
 
   CafeInfo(this.id, this.name, this.location, this.todayHours, this.weekHours, this.plugStatus, this.latLng, this.photoUrls);
 }
