@@ -288,7 +288,7 @@ class _HomeState extends State<Home> {
             onTap: () => Get.to(() => Detail(
                 detailController: Get.find(), cafeId: int.parse(cafeInfo.id))),
             child: Container(
-                height: 120,
+                height: 144,
                 decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(12)),
@@ -308,7 +308,7 @@ class _HomeState extends State<Home> {
 
     return [
       Padding(
-          padding: EdgeInsets.only(top: 16, bottom: 8),
+          padding: EdgeInsets.only(top: 28, bottom: 20),
           child: Text(
             cafeInfo.name ?? "null",
             style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
