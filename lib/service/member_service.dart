@@ -12,6 +12,7 @@ class MemberService {
     final String? storedUuid = prefs.getString('deviceUuid');
     var uuid = storedUuid ?? Uuid().v4();
 
+    print("deviceUuid $uuid");
     await prefs.setString('deviceUuid', uuid);
 
     client.post(Uri.parse("${NetworkUtil.baseUrl}/member/$uuid"));

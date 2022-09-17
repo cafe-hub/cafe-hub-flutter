@@ -1,4 +1,4 @@
-package org.cafehub.cafe_hub_flutter
+package com.susanghan.cafehub
 
 import io.flutter.embedding.android.FlutterActivity
 

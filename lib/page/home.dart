@@ -85,7 +85,7 @@ class _HomeState extends State<Home> {
                 child: Obx(
               () => Stack(alignment: Alignment.bottomCenter, children: [
                 NaverMap(
-                  // initLocationTrackingMode: LocationTrackingMode.Follow,
+                  initLocationTrackingMode: LocationTrackingMode.Follow,
                   locationButtonEnable: true,
                   onMapCreated: onMapCreated,
                   mapType: _mapType,
@@ -286,7 +286,7 @@ class _HomeState extends State<Home> {
   void _showLocationInfo(BuildContext context, CafeInfo cafeInfo) {
     showModalBottomSheet(
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12.0),
+          borderRadius: BorderRadius.only(topLeft: Radius.circular(12), topRight: Radius.circular(12)),
         ),
         context: context,
         builder: (BuildContext context) {
