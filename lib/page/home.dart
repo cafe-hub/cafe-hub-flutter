@@ -129,16 +129,11 @@ class _HomeState extends State<Home> {
                             padding: EdgeInsets.only(left: 2),
                             margin: EdgeInsets.only(bottom: 20, right: 16),
                             child: ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                primary: Colors.white,
-                                side: BorderSide(
-                                    width: 1,
-                                    color: ChColors.gray100,
-                                    style: BorderStyle.solid),
-                                elevation: 2,
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(4)),
+                              style: ButtonStyle(
+                                overlayColor: MaterialStateProperty.all(ChColors.gray100),
+                                backgroundColor: MaterialStateProperty.all(Colors.white),
                               ),
+
                               onPressed: () {
                                 _moveToCafeArea();
                               },
