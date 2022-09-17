@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:cafe_hub_flutter/controller/home_controller.dart';
 import 'package:cafe_hub_flutter/model/presentation/cafe_info.dart';
+import 'package:cafe_hub_flutter/service/member_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -42,6 +43,7 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
     tryToRequestLocationPermission();
+    MemberService().hit();
   }
 
   void tryToRequestLocationPermission() async {
