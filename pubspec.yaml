@@ -18,7 +18,7 @@ dependencies:
   flutter_svg: ^1.1.4
   cupertino_icons: ^1.0.2
   carousel_slider: ^4.1.1
-  flutter_native_splash: ^2.2.8
+  flutter_native_splash: ^2.2.9
   permission_handler: ^10.0.0
   http: ^0.13.5
   logger: ^1.1.0
@@ -37,4 +37,7 @@ flutter:
 
 flutter_native_splash:
   color: "#F5F5F5"
-  image: assets/splash.png
+  image: assets/splash12.png
+
+  android_12:
+    image: assets/splash12.png

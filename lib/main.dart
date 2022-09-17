@@ -2,7 +2,6 @@ import 'package:cafe_hub_flutter/controller/home_controller.dart';
 import 'package:cafe_hub_flutter/model/presentation/cafe_info.dart';
 import 'package:cafe_hub_flutter/page/detail.dart';
 import 'package:cafe_hub_flutter/page/home.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:naver_map_plugin/naver_map_plugin.dart';
