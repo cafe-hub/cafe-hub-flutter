@@ -282,6 +282,9 @@ class _HomeState extends State<Home> {
   //코드 보고 리뷰한 다음 문제 없으면 아래 기존 함수 삭제 부탁
   void _showLocationInfo(BuildContext context, CafeInfo cafeInfo) {
     showModalBottomSheet(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12.0),
+        ),
         context: context,
         builder: (BuildContext context) {
           return InkWell(
@@ -289,9 +292,6 @@ class _HomeState extends State<Home> {
                 detailController: Get.find(), cafeId: int.parse(cafeInfo.id))),
             child: Container(
                 height: 144,
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(12)),
                 child: Padding(
                     padding: EdgeInsets.symmetric(horizontal: 20),
                     child: Column(children: _cafeInfo(cafeInfo)))),
@@ -308,10 +308,11 @@ class _HomeState extends State<Home> {
 
     return [
       Padding(
-          padding: EdgeInsets.only(top: 28, bottom: 20),
+          padding: EdgeInsets.only(top: 24, bottom: 20),
           child: Text(
             cafeInfo.name ?? "null",
             style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
+
           )),
       Row(
         children: [
