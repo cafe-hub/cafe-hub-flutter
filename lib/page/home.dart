@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:cafe_hub_flutter/common/naver_map_controller_adapter.dart';
 import 'package:cafe_hub_flutter/controller/home_controller.dart';
 import 'package:cafe_hub_flutter/model/presentation/cafe_info.dart';
 import 'package:cafe_hub_flutter/service/member_service.dart';
@@ -22,7 +23,7 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  Completer<NaverMapController> _controller = Completer();
+  NaverMapControllerAdapter _mapController = NaverMapControllerAdapter();
   MapType _mapType = MapType.Basic;
 
   void _onMarkerTap(Marker? marker, Map<String, int?> iconSize) async {
@@ -87,7 +88,7 @@ class _HomeState extends State<Home> {
                 NaverMap(
                   initLocationTrackingMode: LocationTrackingMode.Follow,
                   locationButtonEnable: true,
-                  onMapCreated: onMapCreated,
+                  onMapCreated: _mapController.onMapCreated,
                   mapType: _mapType,
                   onCameraIdle: _refreshCafe,
                   markers: widget.homeController.getMarkers(_onMarkerTap),
@@ -372,30 +373,14 @@ class _HomeState extends State<Home> {
     ];
   }
 
-  void onMapCreated(NaverMapController controller) {
-    if (_controller.isCompleted) _controller = Completer();
-    _controller.complete(controller);
-  }
-
   void _moveToCafeArea() {
-    _controller.future.then((value) {
-      setState(() {
-        var camUpdate = CameraUpdate.toCameraPosition(
-            //좌표 선정릉역
-            CameraPosition(target: LatLng(37.510181246, 127.043505829)));
-        value.moveCamera(camUpdate);
-      });
-    });
+    //좌표 선정릉역
+    _mapController.toCameraPosition(37.510181246, 127.043505829);
   }
 
   //지도에 보이는 영역만 카페를 다건조회하는 함수
   Future<List<int?>> _refreshCafe() async {
-    var controller = await _controller.future;
-
-    // //현재 카메라 중심 좌표를 반환
-    // var cameraPositon = await controller.getCameraPosition();
-    // double longitude = cameraPositon.target.longitude;
-    // double latitude = cameraPositon.target.latitude;
+    var controller = await _mapController.mapController.future;
 
     var visibleRegion = await controller.getVisibleRegion();
 
