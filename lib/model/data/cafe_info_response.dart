@@ -16,6 +16,8 @@ class CafeInfoResponse {
   String? sunday;
   String? plugStatus;
   LatLng latLng;
+  double lat;
+  double lng;
   List<String> photoUrl;
 
   CafeInfoResponse({
@@ -31,6 +33,8 @@ class CafeInfoResponse {
     required this.sunday,
     required this.plugStatus,
     required this.latLng,
+    required this.lat,
+    required this.lng,
     required this.photoUrl
   });
 
@@ -49,6 +53,8 @@ class CafeInfoResponse {
         sunday = json['sunday'],
         plugStatus = json['plugStatus'],
         latLng = LatLng(json['latitude'], json['longitude']),
+        lat = json['latitude'],
+        lng = json['longitude'],
         photoUrl = List<String>.from(json['photoUrl'] != null ? json['photoUrl'].map((e) => e.toString()) : []);
 
   CafeInfo toEntity() {
@@ -58,6 +64,6 @@ class CafeInfoResponse {
     ).toList();
     String todayHours = weekHours[today-1];
 
-    return CafeInfo(id.toString(), cafeName, location, todayHours, weekHours, plugStatus, latLng, photoUrl);
+    return CafeInfo(id.toString(), cafeName, location, todayHours, weekHours, plugStatus, latLng, lat, lng, photoUrl);
   }
 }

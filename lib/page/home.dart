@@ -1,20 +1,20 @@
 import 'dart:async';
 
-import 'package:cafe_hub_flutter/common/ch_naver_map_controller.dart';
-import 'package:cafe_hub_flutter/controller/home_controller.dart';
+import 'package:cafe_hub_flutter/common/google_map_controller.dart';
+import 'package:cafe_hub_flutter/controller/home_controller_google.dart';
 import 'package:cafe_hub_flutter/model/presentation/cafe_info.dart';
 import 'package:cafe_hub_flutter/service/member_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:naver_map_plugin/naver_map_plugin.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 import '../common/ch_colors.dart';
 import 'detail.dart';
 
 class Home extends StatefulWidget {
-  final HomeController homeController;
+  final HomeControllerGoogle homeController;
 
   const Home({Key? key, required this.homeController}) : super(key: key);
 
@@ -23,20 +23,20 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  ChNaverMapController _mapController = ChNaverMapController();
-  MapType _mapType = MapType.Basic;
+  ChGoogleMapController _mapController = ChGoogleMapController();
 
-  void _onMarkerTap(Marker? marker, Map<String, int?> iconSize) async {
+  void _onMarkerTap() async {
     widget.homeController.previousSelectedCafe?.isSelected.value = false;
-    var target = widget.homeController.cafes.firstWhere((cafeInfo) => cafeInfo.id == marker!.markerId);
-    target.isSelected.value = true;
+    // var target = widget.homeController.cafes
+    //     .firstWhere((cafeInfo) => cafeInfo.id == marker!.markerId);
+    // target.isSelected.value = true;
+    //
+    // widget.homeController.previousSelectedCafe = target;
 
-    widget.homeController.previousSelectedCafe = target;
-
-    _showLocationInfo(
-        mContext ?? context,
-        await widget.homeController
-            .getCafeDetailData(int.parse(marker!.markerId)));
+    // _showLocationInfo(
+    //     mContext ?? context,
+    //     await widget.homeController
+    //         .getCafeDetailData(int.parse(marker!.markerId)));
   }
 
   BuildContext? mContext;
@@ -83,12 +83,10 @@ class _HomeState extends State<Home> {
             mContext = context;
 
             return SafeArea(
-                child: Obx(
-              () => Stack(alignment: Alignment.bottomCenter, children: [
-                _mapWidget(),
-                _bottomButtons()
-              ]),
-            ));
+              child: Stack(
+                  alignment: Alignment.bottomCenter,
+                  children: [_mapWidget(), _bottomButtons()]),
+            );
           },
         ),
       ),
@@ -96,14 +94,17 @@ class _HomeState extends State<Home> {
   }
 
   Widget _mapWidget() {
-    return NaverMap(
-      initLocationTrackingMode: LocationTrackingMode.Follow,
-      locationButtonEnable: true,
+    return Obx(() => GoogleMap(
+      markers:
+      widget.homeController.getMarkers(_onMarkerTap),
+      mapType: MapType.normal,
+      initialCameraPosition: CameraPosition(
+        target: LatLng(37.510181246, 127.043505829),
+        zoom: 14.4746,
+      ),
       onMapCreated: _mapController.onMapCreated,
-      mapType: _mapType,
-      onCameraIdle: _refreshCafe,
-      markers: widget.homeController.getMarkers(_onMarkerTap),
-    );
+      onCameraMove: _mapController.onCameraPosition,
+    ));
   }
 
   Widget _bottomButtons() {
@@ -148,7 +149,6 @@ class _HomeState extends State<Home> {
                     overlayColor: MaterialStateProperty.all(ChColors.gray100),
                     backgroundColor: MaterialStateProperty.all(Colors.white),
                   ),
-
                   onPressed: () {
                     _moveToCafeArea();
                   },
@@ -175,17 +175,20 @@ class _HomeState extends State<Home> {
               return Container(
                 alignment: Alignment.center,
                 width: double.infinity,
-                child: widget.homeController.cafes.isNotEmpty ? ListView.builder(
-                  padding: EdgeInsets.only(bottom: 24),
-                  itemCount: widget.homeController.cafes.length,
-                  controller: controller, // set this too
-                  itemBuilder: (_, i) => InkWell(
-                    child: _listItem(widget.homeController.cafes[i]),
-                    onTap: () => Get.to(() => Detail(
-                        detailController: Get.find(),
-                        cafeId: int.parse(widget.homeController.cafes[i].id))),
-                  ),
-                ) : Text("해당 지역에 등록된 카페가 없어요..."),
+                child: widget.homeController.cafes.isNotEmpty
+                    ? ListView.builder(
+                        padding: EdgeInsets.only(bottom: 24),
+                        itemCount: widget.homeController.cafes.length,
+                        controller: controller, // set this too
+                        itemBuilder: (_, i) => InkWell(
+                          child: _listItem(widget.homeController.cafes[i]),
+                          onTap: () => Get.to(() => Detail(
+                              detailController: Get.find(),
+                              cafeId: int.parse(
+                                  widget.homeController.cafes[i].id))),
+                        ),
+                      )
+                    : Text("해당 지역에 등록된 카페가 없어요..."),
               );
             },
           ),
@@ -206,7 +209,7 @@ class _HomeState extends State<Home> {
               onPressed: () {
                 Scaffold.of(mContext ?? context).showBodyScrim(false, 0.0);
                 Get.back();
-                if(widget.homeController.cafes.isEmpty) _moveToCafeArea();
+                if (widget.homeController.cafes.isEmpty) _moveToCafeArea();
               },
             ),
           )
@@ -295,7 +298,8 @@ class _HomeState extends State<Home> {
   void _showLocationInfo(BuildContext context, CafeInfo cafeInfo) {
     showModalBottomSheet(
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(topLeft: Radius.circular(12), topRight: Radius.circular(12)),
+          borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(12), topRight: Radius.circular(12)),
         ),
         context: context,
         builder: (BuildContext context) {
@@ -324,7 +328,6 @@ class _HomeState extends State<Home> {
           child: Text(
             cafeInfo.name ?? "null",
             style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
-
           )),
       Row(
         children: [
@@ -384,22 +387,5 @@ class _HomeState extends State<Home> {
   void _moveToCafeArea() {
     //좌표 선정릉역
     _mapController.toCameraPosition(37.510181246, 127.043505829);
-  }
-
-  //지도에 보이는 영역만 카페를 다건조회하는 함수
-  Future<List<int?>> _refreshCafe() async {
-    var controller = await _mapController.mapController.future;
-
-    var visibleRegion = await controller.getVisibleRegion();
-
-    var bottomRightLatitude = visibleRegion.southwest.latitude;
-    var topLeftLatitude = visibleRegion.northeast.latitude;
-    var topLeftLongitude = visibleRegion.southwest.longitude;
-    var bottomRightLongitude = visibleRegion.northeast.longitude;
-
-    widget.homeController.getCafes(topLeftLongitude, topLeftLatitude,
-        bottomRightLongitude, bottomRightLatitude);
-
-    return [1, 2, 3];
   }
 }

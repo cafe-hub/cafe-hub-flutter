@@ -9,8 +9,10 @@ class CafeInfo {
   List<String> weekHours;
   String? plugStatus;
   LatLng latLng;
+  double lat;
+  double lng;
   List<String> photoUrls;
   RxBool isSelected = false.obs;
 
-  CafeInfo(this.id, this.name, this.location, this.todayHours, this.weekHours, this.plugStatus, this.latLng, this.photoUrls);
+  CafeInfo(this.id, this.name, this.location, this.todayHours, this.weekHours, this.plugStatus, this.latLng, this.lat, this.lng, this.photoUrls);
 }
