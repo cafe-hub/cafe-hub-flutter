@@ -85,74 +85,82 @@ class _HomeState extends State<Home> {
             return SafeArea(
                 child: Obx(
               () => Stack(alignment: Alignment.bottomCenter, children: [
-                NaverMap(
-                  initLocationTrackingMode: LocationTrackingMode.Follow,
-                  locationButtonEnable: true,
-                  onMapCreated: _mapController.onMapCreated,
-                  mapType: _mapType,
-                  onCameraIdle: _refreshCafe,
-                  markers: widget.homeController.getMarkers(_onMarkerTap),
-                ),
-                Padding(
-                    padding: EdgeInsets.only(bottom: 24),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Container(
-                          width: 48,
-                          height: 48,
-                          margin: EdgeInsets.only(left: 16),
-                        ),
-                        Container(
-                          width: 100,
-                          height: 32,
-                          child: OutlinedButton(
-                            style: OutlinedButton.styleFrom(
-                                backgroundColor: Colors.white,
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(16)),
-                                side: BorderSide(
-                                    width: 1,
-                                    color: ChColors.gray100,
-                                    style: BorderStyle.solid)),
-                            child: Text(
-                              "목록 보기",
-                              style: TextStyle(color: ChColors.black),
-                            ),
-                            onPressed: () {
-                              _showList(context);
-                            },
-                          ),
-                        ),
-                        Container(
-                            height: 48,
-                            width: 48,
-                            padding: EdgeInsets.only(left: 2),
-                            margin: EdgeInsets.only(bottom: 20, right: 16),
-                            child: ElevatedButton(
-                              style: ButtonStyle(
-                                overlayColor: MaterialStateProperty.all(ChColors.gray100),
-                                backgroundColor: MaterialStateProperty.all(Colors.white),
-                              ),
-
-                              onPressed: () {
-                                _moveToCafeArea();
-                              },
-                              child: SvgPicture.asset(
-                                'assets/coffee.svg',
-                                color: ChColors.black,
-                                width: 24,
-                                height: 24,
-                              ),
-                            ))
-                      ],
-                    )),
+                _mapWidget(),
+                _bottomButtons()
               ]),
             ));
           },
         ),
       ),
     );
+  }
+
+  Widget _mapWidget() {
+    return NaverMap(
+      initLocationTrackingMode: LocationTrackingMode.Follow,
+      locationButtonEnable: true,
+      onMapCreated: _mapController.onMapCreated,
+      mapType: _mapType,
+      onCameraIdle: _refreshCafe,
+      markers: widget.homeController.getMarkers(_onMarkerTap),
+    );
+  }
+
+  Widget _bottomButtons() {
+    return Padding(
+        padding: EdgeInsets.only(bottom: 24),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Container(
+              width: 48,
+              height: 48,
+              margin: EdgeInsets.only(left: 16),
+            ),
+            Container(
+              width: 100,
+              height: 32,
+              child: OutlinedButton(
+                style: OutlinedButton.styleFrom(
+                    backgroundColor: Colors.white,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16)),
+                    side: BorderSide(
+                        width: 1,
+                        color: ChColors.gray100,
+                        style: BorderStyle.solid)),
+                child: Text(
+                  "목록 보기",
+                  style: TextStyle(color: ChColors.black),
+                ),
+                onPressed: () {
+                  _showList(context);
+                },
+              ),
+            ),
+            Container(
+                height: 48,
+                width: 48,
+                padding: EdgeInsets.only(left: 2),
+                margin: EdgeInsets.only(bottom: 20, right: 16),
+                child: ElevatedButton(
+                  style: ButtonStyle(
+                    overlayColor: MaterialStateProperty.all(ChColors.gray100),
+                    backgroundColor: MaterialStateProperty.all(Colors.white),
+                  ),
+
+                  onPressed: () {
+                    _moveToCafeArea();
+                  },
+                  child: SvgPicture.asset(
+                    'assets/coffee.svg',
+                    color: ChColors.black,
+                    width: 24,
+                    height: 24,
+                  ),
+                ))
+          ],
+        ));
   }
 
   void _showList(BuildContext context) {
