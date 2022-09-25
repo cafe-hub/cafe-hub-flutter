@@ -25,18 +25,15 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   ChGoogleMapController _mapController = ChGoogleMapController();
 
-  void _onMarkerTap() async {
+  void _onMarkerTap(String markerId) async {
     widget.homeController.previousSelectedCafe?.isSelected.value = false;
-    // var target = widget.homeController.cafes
-    //     .firstWhere((cafeInfo) => cafeInfo.id == marker!.markerId);
-    // target.isSelected.value = true;
-    //
-    // widget.homeController.previousSelectedCafe = target;
+    var target = widget.homeController.cafes
+        .firstWhere((cafeInfo) => cafeInfo.id == markerId);
+    target.isSelected.value = true;
 
-    // _showLocationInfo(
-    //     mContext ?? context,
-    //     await widget.homeController
-    //         .getCafeDetailData(int.parse(marker!.markerId)));
+    widget.homeController.previousSelectedCafe = target;
+
+    _showLocationInfo(mContext ?? context, target);
   }
 
   BuildContext? mContext;
@@ -95,16 +92,16 @@ class _HomeState extends State<Home> {
 
   Widget _mapWidget() {
     return Obx(() => GoogleMap(
-      markers:
-      widget.homeController.getMarkers(_onMarkerTap),
-      mapType: MapType.normal,
-      initialCameraPosition: CameraPosition(
-        target: LatLng(37.510181246, 127.043505829),
-        zoom: 14.4746,
-      ),
-      onMapCreated: _mapController.onMapCreated,
-      onCameraMove: _mapController.onCameraPosition,
-    ));
+          myLocationButtonEnabled: true,
+          markers: widget.homeController.getMarkers(_onMarkerTap),
+          mapType: MapType.normal,
+          initialCameraPosition: CameraPosition(
+            target: LatLng(37.510181246, 127.043505829),
+            zoom: 14.4746,
+          ),
+          onMapCreated: _mapController.onMapCreated,
+          onCameraMove: _mapController.onCameraPosition,
+        ));
   }
 
   Widget _bottomButtons() {
@@ -135,7 +132,7 @@ class _HomeState extends State<Home> {
                   style: TextStyle(color: ChColors.black),
                 ),
                 onPressed: () {
-                  _showList(context);
+                  _showList(mContext ?? context);
                 },
               ),
             ),

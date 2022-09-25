@@ -9,12 +9,14 @@ class HomeControllerGoogle extends GetxController {
   var cafes = <CafeInfo>[].obs;
   CafeInfo? previousSelectedCafe;
 
-  Set<Marker> getMarkers(void Function() action) {
+  Set<Marker> getMarkers(void Function(String) action) {
     return cafes
         .map((cafeInfo) => Marker(
               markerId: MarkerId(cafeInfo.id),
               position: LatLng(cafeInfo.lat, cafeInfo.lng),
-              onTap: action,
+              onTap: () {
+                action(cafeInfo.id);
+              }
             ))
         .toSet();
   }
