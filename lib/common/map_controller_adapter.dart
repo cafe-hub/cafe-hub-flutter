@@ -1,3 +1,3 @@
 class MapControllerAdapter {
-  void toCameraPosition(double latitude, double longitude) {}
+  void toCameraPosition(double latitude, double longitude) async {}
 }

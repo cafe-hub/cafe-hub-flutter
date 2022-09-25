@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:cafe_hub_flutter/common/naver_map_controller_adapter.dart';
+import 'package:cafe_hub_flutter/common/ch_naver_map_controller.dart';
 import 'package:cafe_hub_flutter/controller/home_controller.dart';
 import 'package:cafe_hub_flutter/model/presentation/cafe_info.dart';
 import 'package:cafe_hub_flutter/service/member_service.dart';
@@ -10,7 +10,7 @@ import 'package:get/get.dart';
 import 'package:naver_map_plugin/naver_map_plugin.dart';
 import 'package:permission_handler/permission_handler.dart';
 
-import '../common/ChColors.dart';
+import '../common/ch_colors.dart';
 import 'detail.dart';
 
 class Home extends StatefulWidget {
@@ -23,7 +23,7 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  NaverMapControllerAdapter _mapController = NaverMapControllerAdapter();
+  ChNaverMapController _mapController = ChNaverMapController();
   MapType _mapType = MapType.Basic;
 
   void _onMarkerTap(Marker? marker, Map<String, int?> iconSize) async {

@@ -5,7 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 
-import '../common/ChColors.dart';
+import '../common/ch_colors.dart';
 import '../controller/detail_controller.dart';
 
 class Detail extends StatefulWidget {
