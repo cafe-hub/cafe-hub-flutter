@@ -77,6 +77,8 @@ class _HomeState extends State<Home> {
         child: Builder(
           builder: (context) {
             mContext = context;
+            MediaQueryData queryData = MediaQuery.of(context);
+            widget.homeController.pixelRatio.value = queryData.devicePixelRatio;
 
             return SafeArea(
               child: Stack(
