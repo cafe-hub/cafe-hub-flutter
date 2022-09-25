@@ -21,7 +21,7 @@ class ChGoogleMapController implements MapControllerAdapter {
     controller.animateCamera(CameraUpdate.newCameraPosition(position));
   }
 
-  void onCameraPosition(CameraPosition cameraPosition) async {
+  void onCameraPosition() async {
     var controller = await mapController.future;
 
     var visibleRegion = await controller.getVisibleRegion();

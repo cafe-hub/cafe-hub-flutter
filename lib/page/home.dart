@@ -24,6 +24,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   ChGoogleMapController _mapController = ChGoogleMapController();
+  BuildContext? mContext;
 
   void _onMarkerTap(String markerId) async {
     widget.homeController.previousSelectedCafe?.isSelected.value = false;
@@ -35,8 +36,6 @@ class _HomeState extends State<Home> {
 
     _showLocationInfo(mContext ?? context, target);
   }
-
-  BuildContext? mContext;
 
   @override
   void initState() {
@@ -100,7 +99,7 @@ class _HomeState extends State<Home> {
             zoom: 14.4746,
           ),
           onMapCreated: _mapController.onMapCreated,
-          onCameraMove: _mapController.onCameraPosition,
+          onCameraIdle: _mapController.onCameraPosition,
         ));
   }
 
