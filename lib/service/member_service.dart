@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:cafe_hub_flutter/common/network_util.dart';
 import 'package:http/http.dart' as http;
+import 'package:logger/logger.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:uuid/uuid.dart';
 
@@ -15,6 +18,10 @@ class MemberService {
     print("deviceUuid $uuid");
     await prefs.setString('deviceUuid', uuid);
 
-    client.post(Uri.parse("${NetworkUtil.baseUrl}/member/$uuid"));
+    var logger = Logger();
+    var url = '${NetworkUtil.baseUrl}/member/$uuid';
+    http.Response res = await client.get(Uri.parse(url));
+    var body = utf8.decode(res.bodyBytes);
+    logger.log(Level.debug, 'response $url ${res.headers} ${body}');
   }
 }
