@@ -1,10 +1,8 @@
-import 'package:cafe_hub_flutter/controller/home_controller.dart';
 import 'package:cafe_hub_flutter/model/presentation/cafe_info.dart';
 import 'package:cafe_hub_flutter/page/detail.dart';
 import 'package:cafe_hub_flutter/page/home.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:naver_map_plugin/naver_map_plugin.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 import 'controller/detail_controller.dart';
@@ -30,7 +28,6 @@ class CafeHub extends StatelessWidget {
       },
       initialRoute: '/home',
       initialBinding: BindingsBuilder(() {
-        Get.put(HomeController());
         Get.put(HomeControllerGoogle());
         Get.put(DetailController(
           cafeInfo: CafeInfo("null", "null", "null", "00:00 - 00:00",
@@ -42,7 +39,7 @@ class CafeHub extends StatelessWidget {
                 "00:00 - 00:00",
                 "00:00 - 00:00",
                 "00:00 - 00:00"
-              ], "null", LatLng(37, 127), 37, 127, ['https://picsum.photos/360', 'https://picsum.photos/400']).obs
+              ], "null", 37, 127, ['https://picsum.photos/360', 'https://picsum.photos/400']).obs
         ));
       }),
     );

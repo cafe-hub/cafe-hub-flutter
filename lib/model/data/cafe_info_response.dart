@@ -1,7 +1,6 @@
 import 'dart:ffi';
 
 import 'package:cafe_hub_flutter/model/presentation/cafe_info.dart';
-import 'package:naver_map_plugin/naver_map_plugin.dart';
 
 class CafeInfoResponse {
   int id;
@@ -15,7 +14,6 @@ class CafeInfoResponse {
   String? saturday;
   String? sunday;
   String? plugStatus;
-  LatLng latLng;
   double lat;
   double lng;
   List<String> photoUrl;
@@ -32,7 +30,6 @@ class CafeInfoResponse {
     required this.saturday,
     required this.sunday,
     required this.plugStatus,
-    required this.latLng,
     required this.lat,
     required this.lng,
     required this.photoUrl
@@ -52,7 +49,6 @@ class CafeInfoResponse {
         saturday = json['saturday'],
         sunday = json['sunday'],
         plugStatus = json['plugStatus'],
-        latLng = LatLng(json['latitude'], json['longitude']),
         lat = json['latitude'],
         lng = json['longitude'],
         photoUrl = List<String>.from(json['photoUrl'] != null ? json['photoUrl'].map((e) => e.toString()) : []);
@@ -64,6 +60,6 @@ class CafeInfoResponse {
     ).toList();
     String todayHours = weekHours[today-1];
 
-    return CafeInfo(id.toString(), cafeName, location, todayHours, weekHours, plugStatus, latLng, lat, lng, photoUrl);
+    return CafeInfo(id.toString(), cafeName, location, todayHours, weekHours, plugStatus, lat, lng, photoUrl);
   }
 }
