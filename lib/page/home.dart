@@ -94,6 +94,7 @@ class _HomeState extends State<Home> {
   Widget _mapWidget() {
     return Obx(() => GoogleMap(
           myLocationButtonEnabled: true,
+          myLocationEnabled: true,
           markers: widget.homeController.getMarkers(_onMarkerTap),
           mapType: MapType.normal,
           initialCameraPosition: CameraPosition(
@@ -112,10 +113,25 @@ class _HomeState extends State<Home> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Container(
-              width: 48,
-              height: 48,
-              margin: EdgeInsets.only(left: 16),
-            ),
+                height: 48,
+                width: 48,
+                padding: EdgeInsets.only(left: 2),
+                margin: EdgeInsets.only(bottom: 20, left: 16),
+                child: ElevatedButton(
+                  style: ButtonStyle(
+                    overlayColor: MaterialStateProperty.all(ChColors.gray100),
+                    backgroundColor: MaterialStateProperty.all(Colors.white),
+                  ),
+                  onPressed: () {
+                    _moveToCafeArea();
+                  },
+                  child: SvgPicture.asset(
+                    'assets/coffee.svg',
+                    color: ChColors.black,
+                    width: 24,
+                    height: 24,
+                  ),
+                )),
             Container(
               width: 100,
               height: 32,
@@ -138,25 +154,10 @@ class _HomeState extends State<Home> {
               ),
             ),
             Container(
-                height: 48,
-                width: 48,
-                padding: EdgeInsets.only(left: 2),
-                margin: EdgeInsets.only(bottom: 20, right: 16),
-                child: ElevatedButton(
-                  style: ButtonStyle(
-                    overlayColor: MaterialStateProperty.all(ChColors.gray100),
-                    backgroundColor: MaterialStateProperty.all(Colors.white),
-                  ),
-                  onPressed: () {
-                    _moveToCafeArea();
-                  },
-                  child: SvgPicture.asset(
-                    'assets/coffee.svg',
-                    color: ChColors.black,
-                    width: 24,
-                    height: 24,
-                  ),
-                ))
+              width: 48,
+              height: 48,
+              margin: EdgeInsets.only(right: 16),
+            ),
           ],
         ));
   }
