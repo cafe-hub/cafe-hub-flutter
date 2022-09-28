@@ -17,6 +17,7 @@ allprojects {
         google()
         mavenCentral()
     }
+    project.ext.set("versionCode", getRevisionCount())
 }
 
 rootProject.buildDir = '../build'
@@ -29,4 +30,8 @@ subprojects {
 
 task clean(type: Delete) {
     delete rootProject.buildDir
+}
+
+static def getRevisionCount() {
+    return Integer.parseInt('git rev-list --count HEAD'.execute().text.trim())
 }
