@@ -8,9 +8,9 @@ import 'package:firebase_core/firebase_core.dart';
 import 'controller/detail_controller.dart';
 import 'controller/home_controller_google.dart';
 
-Future<void> main() async {
+void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  Firebase.initializeApp();
   //세션 시간 일주알로 늘리는 거..오바지..?ㅎㅎㅎㅎ
   //FirebaseAnalytics.instance.setSessionTimeoutDuration(timeout);
   runApp(CafeHub());
