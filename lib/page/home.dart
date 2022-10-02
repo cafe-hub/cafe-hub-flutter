@@ -352,7 +352,7 @@ class _HomeState extends State<Home> {
 
     return [
       Padding(
-          padding: EdgeInsets.only(top: 24, bottom: 20),
+          padding: EdgeInsets.only(top: 8, bottom: 8),
           child: Text(
             cafeInfo.name ?? "null",
             style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
