@@ -149,6 +149,9 @@ class _HomeState extends State<Home> {
                     backgroundColor: MaterialStateProperty.all(Colors.white),
                   ),
                   onPressed: () {
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                      content: Text("카페 정보가 있는 지역으로 이동합니다."),
+                    ));
                     _moveToCafeArea();
                   },
                   child: SvgPicture.asset(
