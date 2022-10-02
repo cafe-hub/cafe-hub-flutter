@@ -53,12 +53,38 @@ class _HomeState extends State<Home> {
           context: context,
           builder: (context) {
             return AlertDialog(
-              title: Text("위치 정보가 필요합니다."),
-              content: TextButton(
-                child: Text("설정"),
-                onPressed: () {
-                  openAppSettings();
-                },
+              title: Text("설정 화면으로 이동합니다."),
+              content: Wrap(
+                children: [
+                  Column(
+                      children: [
+                        Text("GPS 를 이용하려면 위치 정보를 허용해야 합니다. 허용하지 않아도 앱 이용이 가능합니다."),
+                        Padding(padding: EdgeInsets.only(bottom: 24)),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            TextButton(
+                              child: Text(
+                                "취소",
+                                style: TextStyle(color: ChColors.gray600),
+                              ),
+                              onPressed: () {
+                                Get.back();
+                              },
+                            ),
+                            TextButton(
+                              child: Text(
+                                "이동",
+                                style: TextStyle(color: ChColors.primary),
+                              ),
+                              onPressed: () {
+                                openAppSettings();
+                              },
+                            )
+                          ],
+                        )
+                      ])
+                ],
               ),
             );
           });
